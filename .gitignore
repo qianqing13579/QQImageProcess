@@ -1,0 +1,48 @@
+# This file is used to ignore files which are generated
+# ----------------------------------------------------------------------------
+
+Build/* 
+
+# qtcreator generated files
+*.pro.user*
+
+# VS
+*.sdf
+*.opensdf
+*.ilk
+*.pdb
+*.exp
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
+
+# xemacs temporary files
+*.flc
+
+# Vim temporary files
+.*.swp

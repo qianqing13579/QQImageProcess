@@ -2,9 +2,11 @@
 #include"Mat.h"
 using namespace QQ;
 
-void main()
+int main()
 {
 	//
 	ImageProcessTest imageProcessTest;
-	imageProcessTest.TestRotate();
+    imageProcessTest.TestRotate();
+
+    return 0;
 }

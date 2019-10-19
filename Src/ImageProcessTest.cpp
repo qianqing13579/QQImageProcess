@@ -43,7 +43,7 @@ void ImageProcessTest::TestReadAndWrite()
 
 	//读取
 	Mat<uchar> srcImage;//建立一个空图像
-	ReadBmp(LENA_GRAY, srcImage);
+    ReadBmp(LENA_GRAY, srcImage);
 
 	//// 将第100行设置为0
 	for (int i = 0; i <= srcImage.cols - 1; ++i)

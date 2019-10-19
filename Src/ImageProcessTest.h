@@ -14,13 +14,23 @@
 #include "Mat.h"
 using namespace QQ;
 
+
 // ³£ÓÃÊ¾ÀýÍ¼Ïñ
+#ifdef _WIN32
 #define LENA_GRAY		"../../../../Resource/Image/Gray/Lena512.bmp"
 #define LENA_COLOR		"../../../../Resource/Image/Color/Lena800.bmp"
 #define BEAUTY_COLOR	"../../../../Resource/Image/Color/Beauty.bmp"
 #define BEAUTY_GRAY		"../../../../Resource/Image/Gray/Beauty.bmp"
 #define CAMERA_GRAY		"../../../../Resource/Image/Gray/Camera256.bmp"
 #define CAMERA_COLOR	"../../../../Resource/Image/Color/Camera256.bmp"
+#else
+#define LENA_GRAY		"../../../Resource/Image/Gray/Lena512.bmp"
+#define LENA_COLOR		"../../../Resource/Image/Color/Lena800.bmp"
+#define BEAUTY_COLOR	"../../../Resource/Image/Color/Beauty.bmp"
+#define BEAUTY_GRAY		"../../../Resource/Image/Gray/Beauty.bmp"
+#define CAMERA_GRAY		"../../../Resource/Image/Gray/Camera256.bmp"
+#define CAMERA_COLOR	"../../../Resource/Image/Color/Camera256.bmp"
+#endif
 
 class ImageProcessTest
 {

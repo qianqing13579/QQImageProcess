@@ -18,8 +18,7 @@
 
 namespace QQ
 {
-/////////////////////////////////仿射变换/////////////////////////////////////////
-// 仿射变换：srcImage绕点center旋转theta角度（顺时针为正）,缩放scale,平移到dstSize中
+// 仿射变换(Rotate_Bilinear2)：srcImage绕点center旋转theta角度（顺时针为正）,缩放scale,平移到dstSize中
 // dstSize:目标图像大小
 // theta:单位角度
 // scale:缩放比例,>1 放大，<1 缩小

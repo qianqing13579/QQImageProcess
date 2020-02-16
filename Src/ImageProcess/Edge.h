@@ -18,11 +18,11 @@ using namespace std;
 namespace QQ
 {
 
-	// Sobel 算子
-	DLL_EXPORTS void Sobel(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
+// Sobel 算子
+DLL_EXPORTS void Sobel(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
-	// Canny,from Canny3,推荐阈值:low:50 , high:150
-	DLL_EXPORTS void Canny(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double lowThreshold, double highThreshold, bool L2 = false);
+// Canny(Canny3),推荐阈值:low:50 , high:150
+DLL_EXPORTS void Canny(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double lowThreshold, double highThreshold, bool L2 = false);
 
 
 

@@ -7,43 +7,9 @@
 #endif
 namespace QQ
 {
-
-
-void ReadBmp(const string &fileName, Mat<uchar> &image)
-{
-	//图像参数
-	int width,height,bitCount_PerPixel;
-	
-	//读BMP
-	uchar *data=ReadBmp_C(fileName.c_str(),width,height,bitCount_PerPixel);
-	
-	//设置图像头
-	int numberOfChannels = bitCount_PerPixel >> 3;
-	Mat<uchar> temp(height, width, numberOfChannels, data, true);
-
-	image = temp;
-
-	delete[] data;
-
-}
-
-void WriteBmp(const string &fileName, const Mat<uchar> &image)
-{
-	//写入bmp
-	int bitCount_PerPixel=image.numberOfChannels<<3;
-	WriteBmp_C(image.data,image.cols,image.rows,fileName.c_str(),bitCount_PerPixel);
-}
-void WriteMarkedBMP(const string &fileName, const Mat<uchar> &image)
-{
-	WriteMarkedBmp_C(image.data, image.cols, image.rows, fileName.c_str());
-}
-
 ///读取8位或者24位Bmp
 ///返回原始图像数据，未对齐的数据
-uchar *ReadBmp_C(const char * fileName,
-	int &width, int &height,//图像大小(像素的宽度和高度)
-	int &bitCount_PerPixel//返回图像的每像素位数
-	)
+static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCount_PerPixel)
 {
 	FILE *fp;
 	BITMAPFILEHEADER bitmap_FileHeader;
@@ -132,11 +98,7 @@ uchar *ReadBmp_C(const char * fileName,
 
 ////写入原始图像数据，未对齐的数据
 ///8位或者24位
-bool WriteBmp_C(uchar *imageData, //原始图像数据
-	int width, int height, //Bmp图像大小
-	const char *fileName,
-	int bitCount_PerPixel//Bmp每个像素的位数
-	)
+static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileName,int bitCount_PerPixel)
 {
 	FILE * fp;
 	BITMAPFILEHEADER bitmapFileHeader;
@@ -237,10 +199,7 @@ bool WriteBmp_C(uchar *imageData, //原始图像数据
 }
 
 //灰度图中用颜色标记信息
-bool WriteMarkedBmp_C(uchar *image,
-	int width, int height, //Bmp图像大小
-	const char * filename
-	)
+static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * filename)
 {
 
 	FILE * fp;
@@ -380,4 +339,32 @@ bool WriteMarkedBmp_C(uchar *image,
 	return isSuccess;
 }
 
+void ReadBmp(const string &fileName, Mat<uchar> &image)
+{
+	//图像参数
+	int width,height,bitCount_PerPixel;
+	
+	//读BMP
+	uchar *data=ReadBmp_C(fileName.c_str(),width,height,bitCount_PerPixel);
+	
+	//设置图像头
+	int numberOfChannels = bitCount_PerPixel >> 3;
+	Mat<uchar> temp(height, width, numberOfChannels, data, true);
+
+	image = temp;
+
+	delete[] data;
+
+}
+
+void WriteBmp(const string &fileName, const Mat<uchar> &image)
+{
+	//写入bmp
+	int bitCount_PerPixel=image.numberOfChannels<<3;
+	WriteBmp_C(image.data,image.cols,image.rows,fileName.c_str(),bitCount_PerPixel);
+}
+void WriteMarkedBMP(const string &fileName, const Mat<uchar> &image)
+{
+	WriteMarkedBmp_C(image.data, image.cols, image.rows, fileName.c_str());
+}
 }// namespace QQ

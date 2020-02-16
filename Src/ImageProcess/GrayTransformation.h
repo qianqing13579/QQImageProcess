@@ -16,17 +16,15 @@
 
 namespace QQ
 {
-	///////////////////////////////颜色空间转换///////////////////////////////////////////////
-	// 灰度化
-	DLL_EXPORTS void RGB2Gray(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
-	// 求灰度图的平均灰度
-	DLL_EXPORTS int ComputeMeanGray(const Mat<uchar> &srcImage);
+// 灰度化
+DLL_EXPORTS void RGB2Gray(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
+// 求灰度图的平均灰度
+DLL_EXPORTS int ComputeMeanGray(const Mat<uchar> &srcImage);
 
-	///////////////////////////////灰度变换///////////////////////////////////////////////
-	// 直方图均衡化
-	DLL_EXPORTS void EqualizeHistogram(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
+// 直方图均衡化(通过灰度变换实现)
+DLL_EXPORTS void EqualizeHistogram(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
 
 }//namespace QQ

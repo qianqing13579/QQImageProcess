@@ -1,10 +1,33 @@
 #define DLLAPI_EXPORTS
 #include "Filter.h"
+#include<vector>
 #include "Utility.h"
 #include "Histogram.h"
+using namespace std;
 
 namespace QQ
 {
+static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int &medianValue, int &pixelCountLowerMedian)
+{
+	//获取直方图
+	Mat<int> histogramMat;
+	CalculateHistogram(image, histogramMat);
+
+	int *histogram = (int *)histogramMat.data;
+	pixelCountLowerMedian = 0;
+	int pixelCount = image.cols*image.rows;
+	for (int i = 0; i <= 255; ++i)
+	{
+		//
+		pixelCountLowerMedian += histogram[i];
+		if (2 * pixelCountLowerMedian>pixelCount)//少用除法(sum>pixelCount/2)
+		{
+			medianValue = i;
+			break;
+		}
+	}
+
+}
 
 //2015-1-1 20:23:53，by QQ
 //使用copyMakeBorder扩充图像边界，处理滤波边界
@@ -271,29 +294,6 @@ void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aper
 	}//end of y
 
 }// MedianBlur
-void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int &medianValue, int &pixelCountLowerMedian)
-{
-	//获取直方图
-	Mat<int> histogramMat;
-	CalculateHistogram(image, histogramMat);
-
-	int *histogram = (int *)histogramMat.data;
-	pixelCountLowerMedian = 0;
-	int pixelCount = image.cols*image.rows;
-	for (int i = 0; i <= 255; ++i)
-	{
-		//
-		pixelCountLowerMedian += histogram[i];
-		if (2 * pixelCountLowerMedian>pixelCount)//少用除法(sum>pixelCount/2)
-		{
-			medianValue = i;
-			break;
-		}
-	}
-
-}
-
-
 
 // 2016-10-4,by QQ
 void GaussianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double sigma)
@@ -378,6 +378,63 @@ Mat<float> GetGaborKernel(Size ksize, double sigma, double theta, double lambd, 
 
 	return kernel;
 
+}
+// 卷积运算,Kernel正方形卷积核且边长为奇数
+void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar> &dstImage)
+{
+	// 目标图像大小
+	int stride = 1;// 默认滑动窗口步长为1
+	int kernelSize = kernel.rows;
+	int widthOfDst = (srcImage.cols + kernelSize - 1 - kernelSize) / stride + 1;
+	int heightOfDst = (srcImage.rows + kernelSize - 1 - kernelSize) / stride + 1;
+	dstImage.Create(heightOfDst, widthOfDst, 1);
+
+	// 扩充原图
+	Mat<uchar> extendedImage;
+	CopyMakeBorder(srcImage, extendedImage, kernelSize / 2, kernelSize / 2, kernelSize / 2, kernelSize / 2);
+
+	// 构建滑动窗口像素查找表,计算滑动窗口中每个像素在图像中相对于滑动窗口指针偏移
+	std::vector<int> pixelOffset;
+	pixelOffset.resize(kernelSize*kernelSize);
+	memset(&pixelOffset[0], 0, pixelOffset.size()*sizeof(int));
+	int index = 0;
+	for (int y = 0; y < kernelSize; ++y)
+	{
+		int yOffset = y*extendedImage.cols;
+		for (int x = 0; x < kernelSize; ++x)
+		{
+			// 计算每个像素的偏移
+			pixelOffset[index++] = yOffset + x;
+		}
+	}
+
+	// 计算卷积
+	uchar *rowOfDst = dstImage.data;
+	for (int y = 0; y <= heightOfDst - 1; ++y, rowOfDst += widthOfDst)
+	{
+		uchar *colOfDst = rowOfDst;
+
+		// 滑动窗口(第一个元素)在y方向上的偏移
+		int offsetOfY = y*stride;
+
+		for (int x = 0; x <= widthOfDst - 1; ++x, ++colOfDst)
+		{
+			// 计算滑动窗口在图像中的偏移,并转化为指向该滑动窗口的指针
+			int offsetOfX = x*stride;
+			uchar *dataOfROI = extendedImage.data + offsetOfY*extendedImage.cols + offsetOfX;
+
+			// 卷积核
+			float *dataOfKernel = (float *)kernel.data;
+			float sum = 0;
+			for (int i = 0; i < pixelOffset.size(); ++i)
+			{
+				sum += (dataOfROI[pixelOffset[i]] * dataOfKernel[i]);
+			}
+
+			// 卷积结果赋值为结果图像,注意溢出的处理！
+			colOfDst[0] = SATURATE((int)sum);
+		}
+	}
 }
 
 

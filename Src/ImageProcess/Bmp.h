@@ -10,6 +10,7 @@
 
 #ifndef __QQ_BMP_H__
 #define __QQ_BMP_H__
+
 #include "Mat.h"
 #include "CommonDefinition.h"
 #if (defined WIN32 || defined _WIN32)
@@ -23,15 +24,14 @@ using namespace std;
 namespace QQ
 {
 
-// C++接口（支持8位单通道和3通道）
-DLL_EXPORTS void ReadBmp(const string &fileName,Mat<uchar> &image);// 读BMP
-DLL_EXPORTS void WriteBmp(const string &fileName, const Mat<uchar> &image);// 写BMP
-DLL_EXPORTS void WriteMarkedBMP(const string &fileName, const Mat<uchar>& image);// 标记BMP图
+// 读BMP
+DLL_EXPORTS void ReadBmp(const string &fileName,Mat<uchar> &image);
 
-// C接口
-DLL_EXPORTS uchar *ReadBmp_C(const char * fileName, int &width, int &height, int &bitCount_PerPixel);
-DLL_EXPORTS bool WriteBmp_C(uchar *image, int width, int height, const char * fileName, int bitCount_PerPixel);
-DLL_EXPORTS bool WriteMarkedBmp_C(uchar *image, int width, int height, const char * filename);
+// 写BMP
+DLL_EXPORTS void WriteBmp(const string &fileName, const Mat<uchar> &image);
+
+// 标记BMP图
+DLL_EXPORTS void WriteMarkedBMP(const string &fileName, const Mat<uchar>& image);
 
 }//namespace QQ
 #endif

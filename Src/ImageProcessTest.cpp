@@ -9,6 +9,8 @@
 using namespace QQ;
 using namespace std;
 
+#define NUM_LOOP 100
+
 void ImageProcessTest::TestCreateImage()//测试创建图像
 {
 	Mat<uchar> srcImage(512,512,3,QQ::Scalar(0,0,255));//建立一个空图像
@@ -146,44 +148,54 @@ void ImageProcessTest::TestMemoryLeak()//测试是否有内存泄露
 	
 }
 
-void ImageProcessTest::TestSmooth()//测试滤波
+void ImageProcessTest::TestFilter()//测试滤波
 {
 	//测试均值滤波
 	Mat<uchar> srcImage;
 	ReadBmp(LENA_GRAY,srcImage);
 
-	Mat<float> kernel(5, 5, 1);
+	// 均值滤波
+	/*Mat<float> kernel(5, 5, 1);
 	int kernelSize = kernel.cols;
-
-	// 均值滤波的时候，如果窗口过大，会出现精度下降，这个时候就需要一定的数据处理了
 	for (int y = 0; y <= kernelSize-1; ++y)
 	{
 		for (int x = 0; x <= kernelSize - 1; ++x)
 			kernel.At<float>(y, x) = 1.0/(kernelSize*kernelSize);
-	}
+	}*/
+	// 边缘检测
+	Mat<float> kernel(3, 3, 1);
+	int kernelSize = kernel.cols;
+	kernel.At<float>(0, 0) = -1;
+	kernel.At<float>(0, 1) = -2;
+	kernel.At<float>(0, 2) = -1;
+	kernel.At<float>(1, 0) = 0;
+	kernel.At<float>(1, 1) = 0;
+	kernel.At<float>(1, 2) = 0;
+	kernel.At<float>(2, 0) = 1;
+	kernel.At<float>(2, 1) = 2;
+	kernel.At<float>(2, 2) = 1;
+	
 	
 	Mat<uchar> dstImage;
 	clock_t t1;
 	clock_t t2;
-	int sum=0;
-	for (int i=1;i<=16;i++)
+	double sum=0;
+	for (int i = 0; i < NUM_LOOP; ++i)
 	{
-		t1=clock();
+		t1 = clock();
 
 		// 对于滤波，还是使用Blur
 		//Blur(srcImage, dstImage, Size(13, 13));// 3*3：2ms，5*5：2ms，基本不随卷积核大小发生变化
-		//Convolution(srcImage, kernel, dstImage); // 3*3:7ms,5*5:51ms
+		Convolution(srcImage, kernel, dstImage); // 3*3:7ms,5*5:51ms
 		//MedianBlur(srcImage, dstImage, 5); // 3*3:9ms,5*5:12ms
-		GaussianBlur(srcImage, dstImage, 0.84089642);
-		t2=clock();
-		sum+=(t2-t1);
+		//GaussianBlur(srcImage, dstImage, 0.84089642);
+		t2 = clock();
+		sum += (t2 - t1);
 	}
-	printf("My Blur time:%d ms\n",sum>>4);
-	WriteBmp("D:/Blur.bmp", dstImage);
-
+	printf("time:%f ms\n", sum / NUM_LOOP);
+	WriteBmp("Result.bmp", dstImage);
 }
 
-// 2016-5-30 15:07:08，by QQ
 // 测试内存的分配和释放
 void ImageProcessTest::TestMallocAndFree()
 {

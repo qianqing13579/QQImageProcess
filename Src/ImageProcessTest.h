@@ -42,7 +42,7 @@ public:
 	void TestAssignmentOperator(Mat<uchar> &srcImage);//测试重载赋值操作符
 	void TestEqualizeHistogram();//测试直方图均衡化
 	void TestMemoryLeak();//测试是否有内存泄露
-	void TestSmooth();//测试滤波
+	void TestFilter();//测试滤波
 	void TestMallocAndFree();// 测试内存的分配和释放
 	void TestEdge();
 };

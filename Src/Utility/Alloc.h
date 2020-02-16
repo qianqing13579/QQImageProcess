@@ -10,6 +10,7 @@
 
 #ifndef __QQ_ALLOC_H__
 #define __QQ_ALLOC_H__
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -18,9 +19,9 @@
 namespace QQ
 {
 
-	// 实现任意字节对齐的内存分配和释放
-	DLL_EXPORTS void *AlignedMalloc(size_t size, int aligned); // aligned常用16或者32
-	DLL_EXPORTS void AlignedFree(void *data);
+// 实现任意字节对齐的内存分配和释放
+DLL_EXPORTS void *AlignedMalloc(size_t size, int aligned); // aligned常用16或者32
+DLL_EXPORTS void AlignedFree(void *data);
 
 
 

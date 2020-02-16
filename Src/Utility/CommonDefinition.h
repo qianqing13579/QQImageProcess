@@ -49,7 +49,7 @@
 //#define  DESCALE(x,n)  ((x) >> (n)) 
 
 // ±¥ºÍÔËËã
-#define  saturate(x)   (uchar)(((x) & ~255) == 0 ? (x) : ~((x)>>31))
+#define  SATURATE(x)   (uchar)(((x) & ~255) == 0 ? (x) : ~((x)>>31))
 
 // memory deallocation
 #define SAFE_DELETE(p)  { if ((p)) { delete (p); (p) = NULL; } }

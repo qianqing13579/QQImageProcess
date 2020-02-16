@@ -6,7 +6,7 @@ int main()
 {
 	//
 	ImageProcessTest imageProcessTest;
-    imageProcessTest.TestRotate();
+    imageProcessTest.TestFilter();
 
     return 0;
 }

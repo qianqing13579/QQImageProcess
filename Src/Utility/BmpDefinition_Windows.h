@@ -8,11 +8,9 @@
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __QQ_BMP_DEFINITION_WINDOWS_H__
 #define __QQ_BMP_DEFINITION_WINDOWS_H__
-//
-//
+
 /*************************Windows BMP 类型定义******************************/
 typedef unsigned long       DWORD;
 typedef int                 BOOL;

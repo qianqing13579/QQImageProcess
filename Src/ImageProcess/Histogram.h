@@ -7,10 +7,10 @@
 //		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
-// updated 2016-12-25 by QQ£¬2.0
 
 #ifndef __QQ_HISTOGRAM_H__
 #define __QQ_HISTOGRAM_H__
+
 #include "Mat.h"
 
 namespace QQ

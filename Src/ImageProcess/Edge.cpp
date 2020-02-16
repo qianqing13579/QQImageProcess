@@ -4,6 +4,10 @@
 #include<queue>
 #include"Utility.h"
 
+#define CANNY_SHIFT 16
+#define TAN_225  (int)(0.4142135623730950488016887242097*(1 << CANNY_SHIFT));
+#define TAN_675  (int)(2.4142135623730950488016887242097*(1 << CANNY_SHIFT));
+
 namespace QQ
 {
 

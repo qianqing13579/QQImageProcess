@@ -16,8 +16,6 @@
 #include "Mat.h"
 #include "Utility.h"
 
-#define  ROTATE_SHIFT  8
-
 namespace QQ
 {
 /////////////////////////////////仿射变换/////////////////////////////////////////

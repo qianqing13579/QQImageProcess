@@ -1,6 +1,5 @@
 #define DLLAPI_EXPORTS
 
-
 #include "GeometryTransformation.h"
 #include "Utility.h"
 

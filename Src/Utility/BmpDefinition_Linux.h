@@ -8,13 +8,10 @@
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-
-
 #ifndef __QQ_BMP_DEFINITION_LINUX_H__
 #define __QQ_BMP_DEFINITION_LINUX_H__
 
 /*************************Linux BMP 类型定义******************************/
-//
 typedef unsigned short WORD; //2字节无符号
 typedef unsigned int DWORD;  //4字节无符号
 typedef int LONG;           //4字节有符号use int not long here!!!

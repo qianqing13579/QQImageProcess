@@ -3,21 +3,20 @@
 // 2014-11-13£¬by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
-// Contact://		Telephone:15366105857
+// Contact:
 //		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __QQ_COMMON_DEFINITION_H__
 #define __QQ_COMMON_DEFINITION_H__
+
 #include<assert.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<math.h>
 
-//////////////////////////////Common macros////////////////////////////////////////////
 #ifdef DLLAPI_EXPORTS
 #if (defined WIN32 || defined _WIN32 || defined WINCE || defined __CYGWIN__)
 #  define DLL_EXPORTS __declspec(dllexport)

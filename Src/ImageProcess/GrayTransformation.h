@@ -7,7 +7,6 @@
 //		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
-// updated 2016-12-25 by QQ
 
 #ifndef __QQ_GRAY_TRANSFORMATION_H__
 #define __QQ_GRAY_TRANSFORMATION_H__

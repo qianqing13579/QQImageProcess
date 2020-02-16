@@ -8,7 +8,6 @@
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __QQ_BMP_H__
 #define __QQ_BMP_H__
 #include "Mat.h"

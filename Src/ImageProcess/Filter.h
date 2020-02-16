@@ -11,6 +11,7 @@
 
 #ifndef __QQ_SMOOTH_H__
 #define __QQ_SMOOTH_H__
+
 #include "Mat.h"
 
 namespace QQ

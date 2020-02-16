@@ -10,6 +10,7 @@
 
 #ifndef __QQ_UTILITY_H__
 #define __QQ_UTILITY_H__
+
 #include "Mat.h"
 
 namespace QQ

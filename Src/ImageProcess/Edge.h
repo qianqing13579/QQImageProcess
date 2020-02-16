@@ -8,19 +8,12 @@
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __QQ_EDGE_H__
 #define __QQ_EDGE_H__
 
 #include<stddef.h>
 #include "Mat.h"
-
 using namespace std;
-
-
-#define CANNY_SHIFT 16
-#define TAN_225  (int)(0.4142135623730950488016887242097*(1 << CANNY_SHIFT));
-#define TAN_675  (int)(2.4142135623730950488016887242097*(1 << CANNY_SHIFT));
 
 namespace QQ
 {

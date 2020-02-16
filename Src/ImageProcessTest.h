@@ -10,9 +10,9 @@
 
 #ifndef __QQ_IMAGEPROCESS_TEST_H__
 #define __QQ_IMAGEPROCESS_TEST_H__
+
 #include "Mat.h"
 using namespace QQ;
-
 
 // ³£ÓÃÊ¾ÀýÍ¼Ïñ
 #ifdef _WIN32

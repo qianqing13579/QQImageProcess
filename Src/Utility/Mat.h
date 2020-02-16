@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// 矩阵类 Mat.h (Image类的升级版)
+// 矩阵类 Mat.h (Image的升级版)
 // 2016-12-24，by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -11,6 +11,7 @@
 
 #ifndef __MAT_H__
 #define __MAT_H__
+
 #include "CommonDefinition.h"
 #include"Alloc.h"
 

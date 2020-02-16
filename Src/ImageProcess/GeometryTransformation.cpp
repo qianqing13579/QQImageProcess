@@ -2,6 +2,9 @@
 
 
 #include "GeometryTransformation.h"
+#include "Utility.h"
+
+#define  ROTATE_SHIFT  8
 
 namespace QQ
 {

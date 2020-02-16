@@ -1,5 +1,7 @@
 #define DLLAPI_EXPORTS
 #include "Filter.h"
+#include "Utility.h"
+#include "Histogram.h"
 
 namespace QQ
 {

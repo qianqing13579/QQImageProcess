@@ -67,8 +67,8 @@ void ImageProcessTest::TestRotate()//²âÊÔÐý×ª
 
 	Mat<uchar> dstImage;
 	double time1=clock();
-	//Rotate(srcImage, Point(0,0), 30, 1,Size(srcImage.rows, srcImage.cols), dstImage); // 16
-	Rotate270(srcImage, dstImage); // 7ms
+	Rotate(srcImage, Point(0,0), 30, 1,Size(srcImage.rows, srcImage.cols), dstImage); // 16
+	//Rotate270(srcImage, dstImage); // 7ms
 	//VerticalFlip(srcImage, dstImage);
 	double time2=clock();
 	printf("rotate time:%f\n", (time2 - time1));

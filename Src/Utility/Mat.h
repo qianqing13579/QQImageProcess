@@ -4,8 +4,7 @@
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
-//		Telephone:17761745857
-//		Email:654393155@qq.com
+//		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 // Merry Christmas !
@@ -39,7 +38,7 @@ public:
 	void Create(Size _size, int _numberOfChannels);
 
 	//重载赋值操作符
-	inline Mat& operator = (const Mat &dstMat);//共享数据
+	Mat& operator = (const Mat &dstMat);//共享数据
 
 	void SetTo(const Scalar &scalar);
 
@@ -50,7 +49,6 @@ public:
 		return ((_Tp*)(data + step*y))[x];
 	}
 
-protected:
 	void InitEmpty();
 
 public:
@@ -138,7 +136,7 @@ Mat<T>::~Mat()
 
 // 引用计数减1，如果引用计数为0了，调用Deallocate()
 template <typename T>
-void Mat<T>::Release()
+inline void Mat<T>::Release()
 {
 
 	//引用计数减1,如果引用计数为0，说明没有引用，释放数据
@@ -152,7 +150,7 @@ void Mat<T>::Release()
 }
 //释放数据
 template <typename T>
-void Mat<T>::Deallocate()
+inline void Mat<T>::Deallocate()
 {
 
 	AlignedFree(data);
@@ -161,7 +159,7 @@ void Mat<T>::Deallocate()
 }
 
 template <typename T>
-void Mat<T>::Create(int _rows, int _cols, int _numberOfChannels)
+inline void Mat<T>::Create(int _rows, int _cols, int _numberOfChannels)
 {
 	if (rows == _rows&&cols == _cols&&numberOfChannels == _numberOfChannels)
 	{

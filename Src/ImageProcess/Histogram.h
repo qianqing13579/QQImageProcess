@@ -4,14 +4,13 @@
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
-//		Telephone:17761745857
-//		Email:654393155@qq.com
+//		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 // updated 2016-12-25 by QQ£¬2.0
 
-#ifndef __HISTOGRAM_H__
-#define __HISTOGRAM_H__
+#ifndef __QQ_HISTOGRAM_H__
+#define __QQ_HISTOGRAM_H__
 #include "Mat.h"
 
 namespace QQ

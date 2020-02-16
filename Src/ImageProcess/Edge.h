@@ -4,19 +4,17 @@
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
-//		Telephone:17761745857
-//		Email:654393155@qq.com
+//		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __EDGE_H__
-#define __EDGE_H__
+#ifndef __QQ_EDGE_H__
+#define __QQ_EDGE_H__
 
 #include<stddef.h>
-#include<queue>
 #include "Mat.h"
-#include"Utility.h"
+
 using namespace std;
 
 

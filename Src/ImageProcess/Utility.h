@@ -4,15 +4,14 @@
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
-//		Telephone:17761745857
-//		Email:654393155@qq.com
+//		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-#ifndef __UTILITY_H__
-#define __UTILITY_H__
-#include "CommonDefinition.h"
-#include"Mat.h"
+#ifndef __QQ_UTILITY_H__
+#define __QQ_UTILITY_H__
+#include "Mat.h"
+
 namespace QQ
 {
 

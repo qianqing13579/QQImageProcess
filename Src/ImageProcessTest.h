@@ -2,15 +2,14 @@
 // 测试类 ImageProcessTest.h
 // 2014年11月13日 星期四，by QQ
 //
-// Contact:
-//		Telephone:15366105857
-//		Email:654393155@qq.com
+// Contact://		Telephone:15366105857
+//		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __IMAGEPROCESS_TEST_H__
-#define __IMAGEPROCESS_TEST_H__
+#ifndef __QQ_IMAGEPROCESS_TEST_H__
+#define __QQ_IMAGEPROCESS_TEST_H__
 #include "Mat.h"
 using namespace QQ;
 

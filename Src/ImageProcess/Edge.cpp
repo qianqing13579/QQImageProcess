@@ -1,6 +1,8 @@
 #define DLLAPI_EXPORTS
 
 #include"Edge.h"
+#include<queue>
+#include"Utility.h"
 
 namespace QQ
 {

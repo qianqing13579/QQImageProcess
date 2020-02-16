@@ -4,13 +4,12 @@
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
-//		Telephone:17761745857
-//		Email:654393155@qq.com
+//		Email:qianqing13579@163.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
 
-#ifndef __ALLOC_H__
-#define __ALLOC_H__
+#ifndef __QQ_ALLOC_H__
+#define __QQ_ALLOC_H__
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>

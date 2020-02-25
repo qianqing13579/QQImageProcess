@@ -4,11 +4,9 @@
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
-//		Email:qianqing13579@163.com
+//		Email:654393155@qq.com
 //		Blog: http://blog.csdn.net/qianqing13579
 //////////////////////////////////////////////////////////////////////////
-// updated 2016-12-21 by QQ,add CopyMakeBorder,Rotate
-// updated 2017-1-12 by QQ,add VerticalFlip,HorizontalFlip
 
 #ifndef __QQ_GEOMETRY_TRANSFORMATION_H__
 #define __QQ_GEOMETRY_TRANSFORMATION_H__

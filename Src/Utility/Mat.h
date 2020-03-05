@@ -9,8 +9,8 @@
 //////////////////////////////////////////////////////////////////////////
 // Merry Christmas !
 
-#ifndef __MAT_H__
-#define __MAT_H__
+#ifndef __QQ_MAT_H__
+#define __QQ_MAT_H__
 
 #include "CommonDefinition.h"
 #include"Alloc.h"

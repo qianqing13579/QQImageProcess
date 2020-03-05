@@ -1,13 +1,32 @@
 #include"ImageProcessTest.h"
+#include<time.h>
 #include"Bmp.h"
 #include"Edge.h"
 #include"Filter.h"
+#include "Mat.h"
 #include"GeometryTransformation.h"
 #include"GrayTransformation.h"
 #include"Histogram.h"
-#include<time.h>
+
 using namespace QQ;
 using namespace std;
+
+// 常用示例图像
+#ifdef _WIN32
+#define LENA_GRAY		"../../../../Resource/Image/Gray/Lena512.bmp"
+#define LENA_COLOR		"../../../../Resource/Image/Color/Lena800.bmp"
+#define BEAUTY_COLOR	"../../../../Resource/Image/Color/Beauty.bmp"
+#define BEAUTY_GRAY		"../../../../Resource/Image/Gray/Beauty.bmp"
+#define CAMERA_GRAY		"../../../../Resource/Image/Gray/Camera256.bmp"
+#define CAMERA_COLOR	"../../../../Resource/Image/Color/Camera256.bmp"
+#else
+#define LENA_GRAY		"../../../Resource/Image/Gray/Lena512.bmp"
+#define LENA_COLOR		"../../../Resource/Image/Color/Lena800.bmp"
+#define BEAUTY_COLOR	"../../../Resource/Image/Color/Beauty.bmp"
+#define BEAUTY_GRAY		"../../../Resource/Image/Gray/Beauty.bmp"
+#define CAMERA_GRAY		"../../../Resource/Image/Gray/Camera256.bmp"
+#define CAMERA_COLOR	"../../../Resource/Image/Color/Camera256.bmp"
+#endif
 
 #define NUM_LOOP 100
 
@@ -106,12 +125,14 @@ void ImageProcessTest::TestCvtColor()//测试CvtColor
 
 
 }
-void ImageProcessTest::TestAssignmentOperator(Mat<uchar> &srcImage)//测试重载赋值操作符
+
+//测试重载赋值操作符
+static void TestAssignmentOperator(Mat<uchar> &srcImage)
 {
-	//当函数返回的时候，srcImage引用计数也变成0了，这个时候，就要释放空间了
-	//赋值
-	Mat<uchar> dstImage,dstImage2;
-	dstImage2=dstImage=srcImage;
+    //当函数返回的时候，srcImage引用计数也变成0了，这个时候，就要释放空间了
+    //赋值
+    Mat<uchar> dstImage,dstImage2;
+    dstImage2=dstImage=srcImage;
 
 }
 void ImageProcessTest::TestEqualizeHistogram()//测试直方图均衡化

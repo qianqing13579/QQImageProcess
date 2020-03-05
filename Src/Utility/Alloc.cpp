@@ -1,12 +1,15 @@
 #define DLLAPI_EXPORTS
+
+#include"Alloc.h"
 #include<assert.h>
-#include "Alloc.h"
+#include<stdio.h>
+#include<stdlib.h>
 
 namespace QQ
 {
 	/////////////////////////////////////////// 内存的分配与释放///////////////////////////////////
 	// 实现任意字节对齐的内存分配和释放
-	void *AlignedMalloc(size_t size, int aligned)
+    void *AlignedMalloc(int size, int aligned)
 	{
 		// aligned is a power of 2
 		assert((aligned&(aligned - 1)) == 0);

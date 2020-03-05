@@ -1,15 +1,9 @@
-//////////////////////////////////////////////////////////////////////////
-// 常用工具 Utility.h
-// 2016-12-25，by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_UTILITY_H__
-#define __QQ_UTILITY_H__
+// 常用工具
+
+#ifndef __UTILITY_H__
+#define __UTILITY_H__
 
 #include "Mat.h"
 

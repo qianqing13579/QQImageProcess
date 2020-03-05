@@ -1,5 +1,7 @@
 #define DLLAPI_EXPORTS
+
 #include "Histogram.h"
+
 namespace QQ
 {
 

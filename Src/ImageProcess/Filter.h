@@ -1,15 +1,9 @@
-//////////////////////////////////////////////////////////////////////////
-// ÂË²¨ Filter.h
-// 2014-12-10£¬by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_FILTER_H__
-#define __QQ_FILTER_H__
+// ÂË²¨
+
+#ifndef __FILTER_H__
+#define __FILTER_H__
 
 #include "Mat.h"
 

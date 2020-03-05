@@ -1,15 +1,9 @@
-//////////////////////////////////////////////////////////////////////////
-// ≤‚ ‘¿‡ ImageProcessTest.h
-// 2014-11-13£¨by QQ
-//
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
+// ≤‚ ‘
 
-#ifndef __QQ_IMAGEPROCESS_TEST_H__
-#define __QQ_IMAGEPROCESS_TEST_H__
+#ifndef __IMAGEPROCESS_TEST_H__
+#define __IMAGEPROCESS_TEST_H__
 
 
 class ImageProcessTest

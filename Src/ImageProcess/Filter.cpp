@@ -1,4 +1,5 @@
 #define DLLAPI_EXPORTS
+
 #include "Filter.h"
 #include<vector>
 #include "Utility.h"

@@ -1,6 +1,8 @@
 #define DLLAPI_EXPORTS
 
 #include "GeometryTransformation.h"
+#include <math.h>
+#include <string.h>
 #include "Utility.h"
 
 #define  ROTATE_SHIFT  8

@@ -1,15 +1,9 @@
-//////////////////////////////////////////////////////////////////////////
-// Windows下Bmp图定义 Bmp_Definition_Windows.h
-// 2014-11-13，by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.ww
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_BMP_DEFINITION_WINDOWS_H__
-#define __QQ_BMP_DEFINITION_WINDOWS_H__
+// Windows下Bmp图定义
+
+#ifndef __BMP_DEFINITION_WINDOWS_H__
+#define __BMP_DEFINITION_WINDOWS_H__
 
 /*************************Windows BMP 类型定义******************************/
 typedef unsigned long       DWORD;

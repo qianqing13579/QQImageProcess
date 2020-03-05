@@ -3,10 +3,11 @@
 #include"Bmp.h"
 #include"Edge.h"
 #include"Filter.h"
-#include "Mat.h"
+#include"Mat.h"
 #include"GeometryTransformation.h"
 #include"GrayTransformation.h"
 #include"Histogram.h"
+#include"Utility.h"
 
 using namespace QQ;
 using namespace std;

@@ -1,19 +1,11 @@
-//////////////////////////////////////////////////////////////////////////
-// ±ßÔµ¼ì²â Edge.h
-// 2017-1-12£¬by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_EDGE_H__
-#define __QQ_EDGE_H__
+// ±ßÔµ¼ì²â
 
-#include<stddef.h>
+#ifndef __EDGE_H__
+#define __EDGE_H__
+
 #include "Mat.h"
-using namespace std;
 
 namespace QQ
 {

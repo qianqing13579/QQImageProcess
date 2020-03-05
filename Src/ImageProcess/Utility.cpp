@@ -1,5 +1,7 @@
 #define DLLAPI_EXPORTS
+
 #include "Utility.h"
+#include <string.h>
 
 namespace QQ
 {

@@ -1,19 +1,12 @@
-//////////////////////////////////////////////////////////////////////////
-// 矩阵类 Mat.h (Image的升级版)
-// 2016-12-24，by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
-// Merry Christmas !
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_MAT_H__
-#define __QQ_MAT_H__
+// 矩阵类
+
+#ifndef __MAT_H__
+#define __MAT_H__
 
 #include "CommonDefinition.h"
-#include"Alloc.h"
+#include "Alloc.h"
 
 namespace QQ
 {

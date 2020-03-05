@@ -1,21 +1,10 @@
-//////////////////////////////////////////////////////////////////////////
-// 通用定义 CommonDefinition.h
-// 2014-11-13，by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_COMMON_DEFINITION_H__
-#define __QQ_COMMON_DEFINITION_H__
+// 通用定义
 
-#include<assert.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<math.h>
+#ifndef __COMMON_DEFINITION_H__
+#define __COMMON_DEFINITION_H__
+
 
 #ifdef DLLAPI_EXPORTS
 #if (defined WIN32 || defined _WIN32 || defined WINCE || defined __CYGWIN__)
@@ -163,7 +152,6 @@ public:
 	//构造函数
 	Point() :x(0), y(0){}
 	Point(int _x, int _y) :x(_x), y(_y){}
-	//Point(const Point &point);
 
 	//成员变量
 	int x, y;

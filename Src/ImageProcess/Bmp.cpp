@@ -1,10 +1,13 @@
 #define DLLAPI_EXPORTS
+
 #include "Bmp.h"
+#include "CommonDefinition.h"
 #if (defined WIN32 || defined _WIN32)
 #include "BmpDefinition_Windows.h" // 在Linux中使用 BmpDefinition_Linux.h
 #else
 #include "BmpDefinition_Linux.h"
 #endif
+
 namespace QQ
 {
 ///读取8位或者24位Bmp

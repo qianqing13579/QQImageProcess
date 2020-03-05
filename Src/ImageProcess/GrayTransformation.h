@@ -1,18 +1,11 @@
-//////////////////////////////////////////////////////////////////////////
-// 灰度变换及颜色空间转换 GrayTransformation.h
-// 2014-11-16，by QQ
-//
-// Please contact me if you find any bugs, or have any suggestions.
-// Contact:
-//		Email:654393155@qq.com
-//		Blog: http://blog.csdn.net/qianqing13579
-//////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
 
-#ifndef __QQ_GRAY_TRANSFORMATION_H__
-#define __QQ_GRAY_TRANSFORMATION_H__
+// 灰度变换及颜色空间转换
+
+#ifndef __GRAY_TRANSFORMATION_H__
+#define __GRAY_TRANSFORMATION_H__
 
 #include"Mat.h"
-#include"Histogram.h"
 
 namespace QQ
 {

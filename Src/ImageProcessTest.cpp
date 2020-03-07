@@ -170,9 +170,8 @@ void ImageProcessTest::TestMemoryLeak()//测试是否有内存泄露
 	
 }
 
-void ImageProcessTest::TestFilter()//测试滤波
+void ImageProcessTest::TestFilter()
 {
-	//测试均值滤波
 	Mat<uchar> srcImage;
 	ReadBmp(LENA_GRAY,srcImage);
 
@@ -184,6 +183,7 @@ void ImageProcessTest::TestFilter()//测试滤波
 		for (int x = 0; x <= kernelSize - 1; ++x)
 			kernel.At<float>(y, x) = 1.0/(kernelSize*kernelSize);
 	}*/
+
 	// 边缘检测
 	Mat<float> kernel(3, 3, 1);
 	int kernelSize = kernel.cols;
@@ -197,7 +197,6 @@ void ImageProcessTest::TestFilter()//测试滤波
 	kernel.At<float>(2, 1) = 2;
 	kernel.At<float>(2, 2) = 1;
 	
-	
 	Mat<uchar> dstImage;
 	clock_t t1;
 	clock_t t2;
@@ -206,7 +205,6 @@ void ImageProcessTest::TestFilter()//测试滤波
 	{
 		t1 = clock();
 
-		// 对于滤波，还是使用Blur
 		//Blur(srcImage, dstImage, Size(13, 13));// 3*3：2ms，5*5：2ms，基本不随卷积核大小发生变化
 		Convolution(srcImage, kernel, dstImage); // 3*3:7ms,5*5:51ms
 		//MedianBlur(srcImage, dstImage, 5); // 3*3:9ms,5*5:12ms

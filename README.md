@@ -23,5 +23,5 @@
 3. 在main函数中选择ImageProcessTest类中的一个测试用例，比如TestFilter()
 4. 运行程序，可以在QT的构建目录中看到结果图像Result.bmp
 
-#### 直接使用CMake
+#### CMake
 如果你不喜欢使用IDE或者当前无法使用IDE,你也可以在终端直接使用cmake来编译该工程，该工程提供了一个CMakeLists.txt示例,你可以根据自己的需要修改相应的配置。

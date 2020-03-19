@@ -11,6 +11,8 @@
 #ifndef __COMMON_DEFINITION_H__
 #define __COMMON_DEFINITION_H__
 
+namespace QQ
+{
 
 #ifdef DLLAPI_EXPORTS
 #if (defined WIN32 || defined _WIN32 || defined WINCE || defined __CYGWIN__)
@@ -64,13 +66,6 @@ enum
 	LINEAR    =1,//双线性插值,图像缩小时候，容易出现波纹
 	AREA      =2//像素关系重采样
 };
-
-
-////////////////////////////namespace QQ//////////////////////////////////////////////
-namespace QQ
-{
-
-
 
 /////////////////////////////Scalar/////////////////////////////////////////////
 // 表示像素值

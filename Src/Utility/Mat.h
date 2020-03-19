@@ -1,6 +1,14 @@
-// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
+//////////////////////////////////////////////////////////////////////////
+// 矩阵类(Image的升级版)
+// 2016-12-24,by QQ
+//
+// Please contact me if you find any bugs, or have any suggestions.
+// Contact:
+//		Email:654393155@qq.com
+//		Blog:http://blog.csdn.net/qianqing13579
+//////////////////////////////////////////////////////////////////////////
+// Merry Christmas !
 
-// 矩阵类
 
 #ifndef __MAT_H__
 #define __MAT_H__

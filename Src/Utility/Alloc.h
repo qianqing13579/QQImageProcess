@@ -1,6 +1,12 @@
-// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
-
+//////////////////////////////////////////////////////////////////////////
 // 内存分配与释放
+// 2016-5-30,by QQ
+//
+// Please contact me if you find any bugs, or have any suggestions.
+// Contact:
+//		Email:654393155@qq.com
+//		Blog:http://blog.csdn.net/qianqing13579
+//////////////////////////////////////////////////////////////////////////
 
 #ifndef __ALLOC_H__
 #define __ALLOC_H__

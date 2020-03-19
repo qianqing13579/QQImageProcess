@@ -1,6 +1,12 @@
-// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
-
+//////////////////////////////////////////////////////////////////////////
 // 通用定义
+// 2014-11-13,by QQ
+//
+// Please contact me if you find any bugs, or have any suggestions.
+// Contact:
+//		Email:654393155@qq.com
+//		Blog:http://blog.csdn.net/qianqing13579
+//////////////////////////////////////////////////////////////////////////
 
 #ifndef __COMMON_DEFINITION_H__
 #define __COMMON_DEFINITION_H__

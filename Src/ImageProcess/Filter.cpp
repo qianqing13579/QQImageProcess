@@ -4,6 +4,7 @@
 #include<vector>
 #include "Utility.h"
 #include "Histogram.h"
+#include<math.h>
 using namespace std;
 
 namespace QQ

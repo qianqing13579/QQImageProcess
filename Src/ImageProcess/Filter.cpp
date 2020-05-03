@@ -4,6 +4,7 @@
 #include<vector>
 #include "Utility.h"
 #include "Histogram.h"
+#include<math.h>
 using namespace std;
 
 namespace QQ
@@ -30,7 +31,7 @@ static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int 
 
 }
 
-//2015-1-1 20:23:53，by QQ
+//2015-1-1 20:23:53,by QQ
 //使用copyMakeBorder扩充图像边界，处理滤波边界
 void Blur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, Size kernelSize)
 {

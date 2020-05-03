@@ -1,6 +1,12 @@
-// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
-
+//////////////////////////////////////////////////////////////////////////
 // 灰度变换及颜色空间转换
+// 2014-11-16,by QQ
+//
+// Please contact me if you find any bugs, or have any suggestions.
+// Contact:
+//		Email:654393155@qq.com
+//		Blog:http://blog.csdn.net/qianqing13579
+//////////////////////////////////////////////////////////////////////////
 
 #ifndef __GRAY_TRANSFORMATION_H__
 #define __GRAY_TRANSFORMATION_H__

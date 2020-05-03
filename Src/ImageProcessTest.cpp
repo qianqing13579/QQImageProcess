@@ -1,4 +1,5 @@
 #include"ImageProcessTest.h"
+#include<stdio.h>
 #include<time.h>
 #include"Bmp.h"
 #include"Edge.h"

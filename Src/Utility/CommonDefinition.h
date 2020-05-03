@@ -1,10 +1,23 @@
-// Copyright (c) 2014-2020, QQ<654393155@qq.com>, all rights reserved.
-
+//////////////////////////////////////////////////////////////////////////
 // 通用定义
+// 2014-11-13,by QQ
+//
+// Please contact me if you find any bugs, or have any suggestions.
+// Contact:
+//		Email:654393155@qq.com
+//		Blog:http://blog.csdn.net/qianqing13579
+//////////////////////////////////////////////////////////////////////////
 
 #ifndef __COMMON_DEFINITION_H__
 #define __COMMON_DEFINITION_H__
 
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+
+namespace QQ
+{
 
 #ifdef DLLAPI_EXPORTS
 #if (defined WIN32 || defined _WIN32 || defined WINCE || defined __CYGWIN__)
@@ -58,13 +71,6 @@ enum
 	LINEAR    =1,//双线性插值,图像缩小时候，容易出现波纹
 	AREA      =2//像素关系重采样
 };
-
-
-////////////////////////////namespace QQ//////////////////////////////////////////////
-namespace QQ
-{
-
-
 
 /////////////////////////////Scalar/////////////////////////////////////////////
 // 表示像素值

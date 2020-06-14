@@ -23,5 +23,12 @@
 3. 在main函数中选择ImageProcessTest类中的一个测试用例，比如TestFilter()
 4. 运行程序，可以在QT的构建目录中看到结果图像Result.bmp
 
-#### CMake
+#### cmake
 如果你不喜欢使用IDE或者当前无法使用IDE,你也可以在终端直接使用cmake来编译该工程，该工程提供了一个CMakeLists.txt示例,你可以根据自己的需要修改相应的配置。
+
+#### qmake
+由于QT工程提供了一个.pro文件，所以可以直接qmake来编译，具体编译流程如下：
+1. cd ./Build/Ubuntu/QT/Release(QT项目里的路径都是相对于Build可执行文件的)
+2. qmake ../../../../QQImageProcess.pro
+3. make -j8
+4. 运行可执行程序

@@ -76,25 +76,24 @@ void ImageProcessTest::TestReadAndWrite()
 }
 void ImageProcessTest::TestRotate()//测试旋转
 {
+    // read image
 	Mat<uchar> srcImage;
 	ReadBmp(BEAUTY_COLOR, srcImage);
 
+    // rotate
 	Mat<uchar> dstImage;
 	double time1=clock();
-	Rotate(srcImage, Point(0,0), 30, 1,Size(srcImage.rows, srcImage.cols), dstImage); // 16
+    Rotate(srcImage, Point(srcImage.cols/2,srcImage.rows/2), 90, 1,Size(srcImage.rows, srcImage.cols), dstImage); // 16
 	//Rotate270(srcImage, dstImage); // 7ms
 	//VerticalFlip(srcImage, dstImage);
 	double time2=clock();
 	printf("rotate time:%f\n", (time2 - time1));
+
+    // save result
 	WriteBmp("Result.bmp", dstImage);
 }
 void ImageProcessTest::TestResize()
 {
-	////使用OpenCV测试Resize时间
-	//clock_t time1,time2;
-
-	//Image srcImage;
-	//ReadBmp((string(COLOR)+"Road.bmp").c_str(),srcImage);
 
 }
 
@@ -130,25 +129,15 @@ static void TestAssignmentOperator(Mat<uchar> &srcImage)
 }
 void ImageProcessTest::TestEqualizeHistogram()//测试直方图均衡化
 {
-	//测试直方图
+    // read
 	Mat<uchar> srcImage;
-	ReadBmp("D:/Image/Gray/White.bmp",srcImage);
+    ReadBmp(BEAUTY_GRAY,srcImage);
 
-	//计算直方图
-	Mat<int> histogram;
-	CalculateHistogram(srcImage, histogram);
-	
-	//输出直方图
-	int *dataOfHistogram =(int *)histogram.data;
-	for (int i=0;i<=255;++i)
-	{
-		printf("%d\n", dataOfHistogram[i]);
-	}
-
-	////直方图均衡化C++版
 	Mat<uchar> dstImage;
 	EqualizeHistogram(srcImage,dstImage);
-	WriteBmp("D:/Equalize.bmp",dstImage);
+
+    // save result
+    WriteBmp("Result.bmp",dstImage);
 }
 
 void ImageProcessTest::TestMemoryLeak()//测试是否有内存泄露
@@ -235,19 +224,16 @@ void ImageProcessTest::TestMallocAndFree()
 
 void ImageProcessTest::TestEdge()
 {
+    // read image
 	Mat<uchar> srcImage;
 	ReadBmp(LENA_GRAY, srcImage);
 
-	//Mat<uchar> dstImage;
-	//Sobel(srcImage, dstImage);
-	//Canny(srcImage, dstImage, 50, 150);
-	//WriteBmp("D:/Edge.bmp", dstImage);
+    // canny
+    Mat<uchar> dstImage;
+    Canny(srcImage, dstImage, 50, 150);
 
-	Mat<int> dstImage;
-	ComputeIntegralImage(srcImage, dstImage);
-	printf("%d\n", dstImage.At<int>(dstImage.rows - 1, dstImage.cols - 1));
-
-	
+    // save result
+    WriteBmp("Result.bmp", dstImage);
 
 }
 

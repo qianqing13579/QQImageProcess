@@ -13,6 +13,7 @@ int main()
 //    imageProcessTest.TestEqualizeHistogram();
 //    imageProcessTest.TestRotate();
 //    imageProcessTest.TestEdge();
+//    imageProcessTest.TestCvtColor();
 
 	
     return 0;

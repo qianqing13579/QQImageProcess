@@ -31,7 +31,7 @@ void ImageProcessTest::TestCreateImage()//≤‚ ‘¥¥Ω®ÕºœÒ
 	srcImage.SetTo(Scalar(255,0,0));
 	//srcImage.SetTo(Scalar(255, 255, 255, 0));
 
-	WriteBmp("D:/1.bmp", srcImage);
+    WriteBmp("Result.bmp", srcImage);
 
 }
 
@@ -104,7 +104,7 @@ void ImageProcessTest::TestCvtColor()//≤‚ ‘CvtColor
 	ReadBmp(LENA_COLOR, srcImage);
 	double sum=0;
 	Mat<uchar> dstImage;
-	for (int i=1;i<=16;++i)
+    for (int i=1;i<=NUM_LOOP;++i)
 	{
 		clock_t time1=clock();
 		RGB2Gray(srcImage,dstImage);
@@ -112,8 +112,8 @@ void ImageProcessTest::TestCvtColor()//≤‚ ‘CvtColor
 		sum+=(time2-time1);
 
 	}
-	printf("CvtColor:%f ms\n",sum/16);
-	WriteBmp("D:/1.bmp",dstImage);
+    printf("RGB2Gray:%f ms\n",sum/NUM_LOOP);
+    WriteBmp("Result.bmp",dstImage);
 
 
 }

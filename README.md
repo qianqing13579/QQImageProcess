@@ -4,16 +4,17 @@
 
 ***
 ## 目录结构
+```
 
 ├── Resource:资源文件
 │   └── Image:示例图像
 ├── Src:源码文件
 │   └── ImageProcess:图像处理模块
-│        └── Bmp.h:Bmp图像读写，本图像处理库目前只支持bmp图像的读写(Bmp图像的原理见博客:[如何读写BMP图像](https://blog.csdn.net/qianqing13579/article/details/54316499))
-│        └── Edge.h:边缘检测算法，主要包括Sobel和经典的Canny算法(Canny的解读见博客：[Canny边缘检测算法的原理与实现]( https://blog.csdn.net/qianqing13579/article/details/51708493))
+│        └── Bmp.h:Bmp图像读写，本图像处理库目前只支持bmp图像的读写(Bmp图像的原理解读见博客:https://blog.csdn.net/qianqing13579/article/details/54316499)
+│        └── Edge.h:边缘检测算法，主要包括Sobel和经典的Canny算法(Canny的解读见博客:https://blog.csdn.net/qianqing13579/article/details/51708493)
 │        └── Filter.h:滤波算法，主要包括均值滤波、中值滤波、高斯滤波等
-│        └── GeometryTransformation.h:几何变换，主要包括仿射变换(原理的解读见博客:[图像旋转的原理，实现与优化](https://blog.csdn.net/qianqing13579/article/details/52504089))
-│        └── GrayTransformation.h:灰度变换，主要包括图像灰度化算法和直方图均衡化算法(直方图均衡化算法见博客:[直方图均衡化算法原理与实现](https://blog.csdn.net/qianqing13579/article/details/52422364))
+│        └── GeometryTransformation.h:几何变换，主要包括仿射变换(原理的解读见博客:https://blog.csdn.net/qianqing13579/article/details/52504089)
+│        └── GrayTransformation.h:灰度变换，主要包括图像灰度化算法和直方图均衡化算法(直方图均衡化算法见博客:https://blog.csdn.net/qianqing13579/article/details/52422364)
 │        └── Histogram.h:直方图算法，主要包括计算图像的直方图(只支持灰度图)
 │        └── Utility.h:常用工具
 │   └── Utility:包括通用定义，常用工具
@@ -22,7 +23,7 @@
 │        └── Mat.h:矩阵类Mat的定义,Mat的实现参考了OpenCV中的实现，使用方法也基本与OpenCV是一样的,具体使用方法可以参考各算法的示例程序
 │   └── ImageProcessTest.h:示例程序，包含了各种算法的示例程序，比如边缘检测算法的示例TestEdge()
 │   └── main.cpp:main函数
-
+```
 ***
 ## 使用说明
 ### Windows

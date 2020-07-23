@@ -44,12 +44,17 @@
 3. 在main函数中选择ImageProcessTest类中的一个测试用例，比如TestFilter()，运行程序，可以在QT的构建目录(Build/Linux/QT/build-QQImageProcess-Desktop_Qt_5_10_0_GCC_64bit-Debug/)中看到结果图像Result.bmp
 
 #### cmake
-如果你不喜欢使用IDE或者当前无法使用IDE,你也可以在终端直接使用cmake来编译该工程，该工程提供了一个CMakeLists.txt示例,你可以根据自己的需要修改相应的配置,使用cmake的编译流程与下面的qmake基本类似，可以参考下面的qmake编译流程。
+如果你不喜欢使用IDE或者当前无法使用IDE,你也可以在终端直接使用cmake来编译该工程.
+1. mkdir -p ./Build/Linux/cmake/Release
+2. cd ./Build/Linux/cmake/Release
+3. cmake ../../../../
+4. make -j8
+5. ./QQImageProcess
 
 #### qmake
-由于QT工程提供了一个.pro文件，所以可以直接使用qmake来编译，具体编译流程如下：
-1. 创建构建目录 ./Build/Linux/QT/Release
-2. cd ./Build/Linux/QT/Release
+由于QT工程提供了一个.pro文件，所以可以直接使用qmake来编译，编译流程基本与cmake一样。
+1. mkdir -p ./Build/Linux/qmake/Release
+2. cd ./Build/Linux/qmake/Release
 3. qmake ../../../../QQImageProcess.pro
 4. make -j8
 5. ./QQImageProcess

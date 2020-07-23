@@ -19,15 +19,15 @@ set(INCLUDE_PATH    ${CMAKE_CURRENT_SOURCE_DIR}/Src/
 include_directories(${INCLUDE_PATH})
 
 # 添加源文件
-set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Bmp.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Edge.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Filter.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/GeometryTransformation.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/GrayTransformation.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Histogram.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Utility.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/Utility/Alloc.cpp \
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcessTest.cpp \
+set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Bmp.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Edge.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Filter.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/GeometryTransformation.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/GrayTransformation.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Histogram.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Utility.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/Utility/Alloc.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcessTest.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/Src/main.cpp)
 
 # 添加可执行目标

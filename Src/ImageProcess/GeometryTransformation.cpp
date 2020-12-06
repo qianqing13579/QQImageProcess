@@ -11,16 +11,16 @@ namespace QQ
 {
 	void Rotate(const Mat<uchar> &srcImage, Point center, double theta, double scale, Size dstSize, Mat<uchar> &dstImage)
 	{
-		// ²ÎÊı¼ì²é£¬ÄÚ´æ·ÖÅä
+		// å‚æ•°æ£€æŸ¥ï¼Œå†…å­˜åˆ†é…
 		dstImage.Create(dstSize, srcImage.numberOfChannels);
 		dstImage.SetTo(Scalar(0, 0, 0));
 
-		// Ô­Í¼ÏñµÄĞı×ªÖĞĞÄ
+		// åŸå›¾åƒçš„æ—‹è½¬ä¸­å¿ƒ
 		int x0 = center.x;
 		int y0 = center.y;
 		theta = DEGREE2RADIAN(theta);
 
-		// dx,dy¾ÍÊÇdstImageÖĞĞÄµãÓësrcImageµÄĞı×ªÖĞĞÄµÄ¾àÀë£¬Ò²¾ÍÊÇÆ½ÒÆµÄ¾àÀë 
+		// dx,dyå°±æ˜¯dstImageä¸­å¿ƒç‚¹ä¸srcImageçš„æ—‹è½¬ä¸­å¿ƒçš„è·ç¦»ï¼Œä¹Ÿå°±æ˜¯å¹³ç§»çš„è·ç¦» 
 		int dx = dstImage.cols / 2 - x0; 
 		int dy = dstImage.rows / 2 - y0;
 		int numberOfChannels = srcImage.numberOfChannels;
@@ -29,15 +29,15 @@ namespace QQ
 		int heightOfDst = dstImage.rows;
 
 		Mat<uchar> extendedImage;
-		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1); // Ê¹ÓÃ0Ìî³ä±ß½ç
+		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1); // ä½¿ç”¨0å¡«å……è¾¹ç•Œ
 
-		////////////////////////////////// ÓÅ»¯²¿·Ö/////////////////////////////
-		// ½«Ñ­»·ÄÚµÄ²»±äÁ¿ÌáÈ¡³öÀ´
+		////////////////////////////////// ä¼˜åŒ–éƒ¨åˆ†/////////////////////////////
+		// å°†å¾ªç¯å†…çš„ä¸å˜é‡æå–å‡ºæ¥
 		double sinTheta = sin(theta);
 		double cosTheta = cos(theta);
 		scale = 1.0 / scale;
 
-		// ¸Ä±äÁËÑ­»·ÄÚ²¿ÔöÁ¿µÄ·½Ê½
+		// æ”¹å˜äº†å¾ªç¯å†…éƒ¨å¢é‡çš„æ–¹å¼
 		double temp1 = (0 - y0 - dy)*sinTheta;
 		double temp2 = (0 - y0 - dy)*cosTheta;
 		double dtemp1 = sinTheta;
@@ -45,18 +45,18 @@ namespace QQ
 
 		for (int y = 0; y <= heightOfDst - 1; ++y, temp1 += dtemp1, temp2 += dtemp2)
 		{
-			// ¸Ä±äÁËÑ­»·ÄÚ²¿ÔöÁ¿µÄ·½Ê½
+			// æ”¹å˜äº†å¾ªç¯å†…éƒ¨å¢é‡çš„æ–¹å¼
 			double temp3 = ((0 - x0 - dx)*cosTheta + temp1)*scale + x0;
 			double temp4 = (-(0 - x0 - dx)*sinTheta + temp2)*scale + y0;
 			double dtemp3 = (cosTheta)*scale;
 			double dtemp4 = (-sinTheta)*scale;
 			for (int x = 0; x <= widthOfDst - 1; ++x, temp3 += dtemp3, temp4 += dtemp4)
 			{
-				// ¼ÆËãÔ­Í¼×ø±ê
+				// è®¡ç®—åŸå›¾åæ ‡
 				double srcX = temp3;
 				double srcY = temp4;
 
-				// ¼Ó1,µÃµ½ÔÚextendedImageÖĞµÄ×ø±ê
+				// åŠ 1,å¾—åˆ°åœ¨extendedImageä¸­çš„åæ ‡
 				srcX++;
 				srcY++;
 
@@ -64,19 +64,19 @@ namespace QQ
 				int x1 = (int)(srcX);
 				int y1 = (int)(srcY);
 
-				// ¸¡µã×ª»¯ÎªÕûÊı
-				// Èç¹ûÖ±½ÓÊ¹ÓÃfloat dx1= srcX - x1;Ôò(1 - dx1)*(1 - dy1)¾ÍÎª¸¡µã³Ë·¨£¬¶ø¸¡µãµÄ³Ë·¨ºÜÂı
+				// æµ®ç‚¹è½¬åŒ–ä¸ºæ•´æ•°
+				// å¦‚æœç›´æ¥ä½¿ç”¨float dx1= srcX - x1;åˆ™(1 - dx1)*(1 - dy1)å°±ä¸ºæµ®ç‚¹ä¹˜æ³•ï¼Œè€Œæµ®ç‚¹çš„ä¹˜æ³•å¾ˆæ…¢
 				int dx1 = (srcX - x1)*(1 << ROTATE_SHIFT);
 				int dy1 = (srcY - y1)*(1 << ROTATE_SHIFT);
 
 				if (numberOfChannels == 1)
 				{
-					// !£¡£¡×¢ÒâÕâÀïµÄ·¶Î§£¬ÔÚextendedImageÖĞ£¬Ô­Í¼µÄ·¶Î§¾ÍÊÇ1~cols - 2ÁË
+					// !ï¼ï¼æ³¨æ„è¿™é‡Œçš„èŒƒå›´ï¼Œåœ¨extendedImageä¸­ï¼ŒåŸå›¾çš„èŒƒå›´å°±æ˜¯1~cols - 2äº†
 					if ((x1 >= 1 && x1 <= extendedImage.cols - 2) && (y1 >= 1 && y1 <= extendedImage.rows - 2))
 					{
-						//Ë«ÏßĞÔ²åÖµ
-						//ÖÜÎ§4¸öµã
-						//a¾ÍÊÇ×î½üÁÚÏñËØ
+						//åŒçº¿æ€§æ’å€¼
+						//å‘¨å›´4ä¸ªç‚¹
+						//aå°±æ˜¯æœ€è¿‘é‚»åƒç´ 
 						//a   b
 						//  p
 						//c   d
@@ -92,7 +92,7 @@ namespace QQ
 					}
 					else
 					{
-						// Ô½½ç¸³Öµ0
+						// è¶Šç•Œèµ‹å€¼0
 						dstImage.At<uchar>(y,x) = 0;
 					}
 				}
@@ -100,9 +100,9 @@ namespace QQ
 				{
 					if ((x1 >= 1 && x1 <= extendedImage.cols - 2) && (y1 >= 1 && y1 <= extendedImage.rows - 2))
 					{
-						//Ë«ÏßĞÔ²åÖµ
-						//ÖÜÎ§4¸öµã
-						//a¾ÍÊÇ×î½üÁÚÏñËØ
+						//åŒçº¿æ€§æ’å€¼
+						//å‘¨å›´4ä¸ªç‚¹
+						//aå°±æ˜¯æœ€è¿‘é‚»åƒç´ 
 						//a   b
 						//  p
 						//c   d
@@ -133,18 +133,18 @@ namespace QQ
 
 	void Rotate90(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 	{
-		// ²ÎÊı¼ì²é£¬ÄÚ´æ·ÖÅä
+		// å‚æ•°æ£€æŸ¥ï¼Œå†…å­˜åˆ†é…
 		dstImage.Create(srcImage.cols,srcImage.rows, srcImage.numberOfChannels);
 		dstImage.SetTo(Scalar(0, 0, 0));
 
-		// Ğı×ªÖĞĞÄ£¬ÕâÀïÈ¡Ô­Í¼ÖĞĞÄ£¬Ò²¿ÉÒÔÉèÖÃÎªÆäËûµã
+		// æ—‹è½¬ä¸­å¿ƒï¼Œè¿™é‡Œå–åŸå›¾ä¸­å¿ƒï¼Œä¹Ÿå¯ä»¥è®¾ç½®ä¸ºå…¶ä»–ç‚¹
 		int x0 = srcImage.cols / 2;
 		int y0 = srcImage.rows / 2;
 
 		Mat<uchar> extendedImage;
-		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1); // Ê¹ÓÃ0Ìî³ä±ß½ç
+		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1); // ä½¿ç”¨0å¡«å……è¾¹ç•Œ
 
-		// dx,dy¾ÍÊÇdstÓësrcÍ¼ÏñÖĞĞÄµÄ¾àÀë 
+		// dx,dyå°±æ˜¯dstä¸srcå›¾åƒä¸­å¿ƒçš„è·ç¦» 
 		int dx = dstImage.cols / 2 - srcImage.cols / 2;
 		int dy = dstImage.rows / 2 - srcImage.rows / 2;
 		int numberOfChannels = srcImage.numberOfChannels;
@@ -152,22 +152,22 @@ namespace QQ
 		int widthOfDst = dstImage.cols;
 		int heightOfDst = dstImage.rows;
 
-		////////////////////////////////// ÓÅ»¯²¿·Ö/////////////////////////////
-		// ¸Ä±äÁËÑ­»·ÄÚ²¿ÔöÁ¿µÄ·½Ê½
+		////////////////////////////////// ä¼˜åŒ–éƒ¨åˆ†/////////////////////////////
+		// æ”¹å˜äº†å¾ªç¯å†…éƒ¨å¢é‡çš„æ–¹å¼
 		double temp1 = 0 - y0 - dy;
 
 		for (int y = 0; y <= heightOfDst - 1; ++y, ++temp1)
 		{
-			// ¸Ä±äÁËÑ­»·ÄÚ²¿ÔöÁ¿µÄ·½Ê½
+			// æ”¹å˜äº†å¾ªç¯å†…éƒ¨å¢é‡çš„æ–¹å¼
 			double temp3 = temp1 + x0;
 			double temp4 = x0 + dx + y0;
 			for (int x = 0; x <= widthOfDst - 1; ++x, --temp4)
 			{
-				// ¼ÆËãÔ­Í¼×ø±ê
+				// è®¡ç®—åŸå›¾åæ ‡
 				double srcX = temp3;
 				double srcY = temp4;
 
-				// ¼Ó1,µÃµ½ÔÚextendedImageÖĞµÄ×ø±ê
+				// åŠ 1,å¾—åˆ°åœ¨extendedImageä¸­çš„åæ ‡
 				int x1 = ++srcX;
 				int y1 = ++srcY;
 
@@ -176,18 +176,18 @@ namespace QQ
 				//int x1 = (int)(srcX);
 				//int y1 = (int)(srcY);
 
-				//// ¸¡µã×ª»¯ÎªÕûÊı
+				//// æµ®ç‚¹è½¬åŒ–ä¸ºæ•´æ•°
 				//int dx1 = (srcX - x1)*(1 << ROTATE_SHIFT);
 				//int dy1 = (srcY - y1)*(1 << ROTATE_SHIFT);
 
 				if (numberOfChannels == 1)
 				{
-					// !£¡£¡×¢ÒâÕâÀïµÄ·¶Î§£¬ÔÚextendedImageÖĞ£¬Ô­Í¼µÄ·¶Î§¾ÍÊÇ1~cols - 2ÁË
+					// !ï¼ï¼æ³¨æ„è¿™é‡Œçš„èŒƒå›´ï¼Œåœ¨extendedImageä¸­ï¼ŒåŸå›¾çš„èŒƒå›´å°±æ˜¯1~cols - 2äº†
 					if ((x1 >= 1 && x1 <= extendedImage.cols - 2) && (y1 >= 1 && y1 <= extendedImage.rows - 2))
 					{
-						//Ë«ÏßĞÔ²åÖµ
-						//ÖÜÎ§4¸öµã
-						//a¾ÍÊÇ×î½üÁÚÏñËØ
+						//åŒçº¿æ€§æ’å€¼
+						//å‘¨å›´4ä¸ªç‚¹
+						//aå°±æ˜¯æœ€è¿‘é‚»åƒç´ 
 						//a   b
 						//  p
 						//c   d
@@ -203,7 +203,7 @@ namespace QQ
 					}
 					else
 					{
-						// Ô½½ç¸³Öµ0
+						// è¶Šç•Œèµ‹å€¼0
 						dstImage.At<uchar>(y, x) = 0;
 					}
 				}
@@ -211,9 +211,9 @@ namespace QQ
 				{
 					if ((x1 >= 1 && x1 <= extendedImage.cols - 2) && (y1 >= 1 && y1 <= extendedImage.rows - 2))
 					{
-						////Ë«ÏßĞÔ²åÖµ
-						////ÖÜÎ§4¸öµã
-						////a¾ÍÊÇ×î½üÁÚÏñËØ
+						////åŒçº¿æ€§æ’å€¼
+						////å‘¨å›´4ä¸ªç‚¹
+						////aå°±æ˜¯æœ€è¿‘é‚»åƒç´ 
 						////a   b
 						////  p
 						////c   d
@@ -244,19 +244,19 @@ namespace QQ
 
 	void Rotate270(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 	{
-		// ²ÎÊı¼ì²é£¬ÄÚ´æ·ÖÅä
+		// å‚æ•°æ£€æŸ¥ï¼Œå†…å­˜åˆ†é…
 		dstImage.Create(srcImage.cols,srcImage.rows, srcImage.numberOfChannels);
 		dstImage.SetTo(Scalar(0, 0, 0));
 
-		// Ğı×ªÖĞĞÄ£¬ÕâÀïÈ¡Ô­Í¼ÖĞĞÄ£¬Ò²¿ÉÒÔÉèÖÃÎªÆäËûµã
+		// æ—‹è½¬ä¸­å¿ƒï¼Œè¿™é‡Œå–åŸå›¾ä¸­å¿ƒï¼Œä¹Ÿå¯ä»¥è®¾ç½®ä¸ºå…¶ä»–ç‚¹
 		int x0 = srcImage.cols / 2;
 		int y0 = srcImage.rows / 2;
 		//theta = DEGREE2RADIAN(theta);
 
 		Mat<uchar> extendedImage;
-		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1); // Ê¹ÓÃ0Ìî³ä±ß½ç
+		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1); // ä½¿ç”¨0å¡«å……è¾¹ç•Œ
 
-		// dx,dy¾ÍÊÇdstÓësrcÍ¼ÏñÖĞĞÄµÄ¾àÀë 
+		// dx,dyå°±æ˜¯dstä¸srcå›¾åƒä¸­å¿ƒçš„è·ç¦» 
 		int dx = dstImage.cols / 2 - srcImage.cols / 2;
 		int dy = dstImage.rows / 2 - srcImage.rows / 2;
 		int numberOfChannels = srcImage.numberOfChannels;
@@ -264,22 +264,22 @@ namespace QQ
 		int widthOfDst = dstImage.cols;
 		int heightOfDst = dstImage.rows;
 
-		////////////////////////////////// ÓÅ»¯²¿·Ö/////////////////////////////
-		// ¸Ä±äÁËÑ­»·ÄÚ²¿ÔöÁ¿µÄ·½Ê½
+		////////////////////////////////// ä¼˜åŒ–éƒ¨åˆ†/////////////////////////////
+		// æ”¹å˜äº†å¾ªç¯å†…éƒ¨å¢é‡çš„æ–¹å¼
 		double temp1 = y0 + dy;
 
 		for (int y = 0; y <= heightOfDst - 1; ++y, --temp1)
 		{
-			// ¸Ä±äÁËÑ­»·ÄÚ²¿ÔöÁ¿µÄ·½Ê½
+			// æ”¹å˜äº†å¾ªç¯å†…éƒ¨å¢é‡çš„æ–¹å¼
 			double temp3 = temp1 + x0;
 			double temp4 = 0 - x0 - dx + y0;
 			for (int x = 0; x <= widthOfDst - 1; ++x, ++temp4)
 			{
-				// ¼ÆËãÔ­Í¼×ø±ê
+				// è®¡ç®—åŸå›¾åæ ‡
 				double srcX = temp3;
 				double srcY = temp4;
 
-				// ¼Ó1,µÃµ½ÔÚextendedImageÖĞµÄ×ø±ê
+				// åŠ 1,å¾—åˆ°åœ¨extendedImageä¸­çš„åæ ‡
 				int x1 = ++srcX;
 				int y1 = ++srcY;
 
@@ -287,18 +287,18 @@ namespace QQ
 				//int x1 = (int)(srcX);
 				//int y1 = (int)(srcY);
 
-				//// ¸¡µã×ª»¯ÎªÕûÊı
+				//// æµ®ç‚¹è½¬åŒ–ä¸ºæ•´æ•°
 				//int dx1 = (srcX - x1)*(1 << ROTATE_SHIFT);
 				//int dy1 = (srcY - y1)*(1 << ROTATE_SHIFT);
 
 				if (numberOfChannels == 1)
 				{
-					// !£¡£¡×¢ÒâÕâÀïµÄ·¶Î§£¬ÔÚextendedImageÖĞ£¬Ô­Í¼µÄ·¶Î§¾ÍÊÇ1~cols - 2ÁË
+					// !ï¼ï¼æ³¨æ„è¿™é‡Œçš„èŒƒå›´ï¼Œåœ¨extendedImageä¸­ï¼ŒåŸå›¾çš„èŒƒå›´å°±æ˜¯1~cols - 2äº†
 					if ((x1 >= 1 && x1 <= extendedImage.cols - 2) && (y1 >= 1 && y1 <= extendedImage.rows - 2))
 					{
-						//Ë«ÏßĞÔ²åÖµ
-						//ÖÜÎ§4¸öµã
-						//a¾ÍÊÇ×î½üÁÚÏñËØ
+						//åŒçº¿æ€§æ’å€¼
+						//å‘¨å›´4ä¸ªç‚¹
+						//aå°±æ˜¯æœ€è¿‘é‚»åƒç´ 
 						//a   b
 						//  p
 						//c   d
@@ -314,7 +314,7 @@ namespace QQ
 					}
 					else
 					{
-						// Ô½½ç¸³Öµ0
+						// è¶Šç•Œèµ‹å€¼0
 						dstImage.At<uchar>(y, x) = 0;
 					}
 				}
@@ -322,9 +322,9 @@ namespace QQ
 				{
 					if ((x1 >= 1 && x1 <= extendedImage.cols - 2) && (y1 >= 1 && y1 <= extendedImage.rows - 2))
 					{
-						////Ë«ÏßĞÔ²åÖµ
-						////ÖÜÎ§4¸öµã
-						////a¾ÍÊÇ×î½üÁÚÏñËØ
+						////åŒçº¿æ€§æ’å€¼
+						////å‘¨å›´4ä¸ªç‚¹
+						////aå°±æ˜¯æœ€è¿‘é‚»åƒç´ 
 						////a   b
 						////  p
 						////c   d
@@ -356,7 +356,7 @@ namespace QQ
 	{
 		dstImage.Create(srcImage.rows,srcImage.cols, srcImage.numberOfChannels);
 
-		// ´¹Ö±·­×ª
+		// å‚ç›´ç¿»è½¬
 		int widthStep = srcImage.cols*srcImage.numberOfChannels;
 		int width = srcImage.cols;
 		int height = srcImage.rows;
@@ -364,17 +364,17 @@ namespace QQ
 		uchar *dataOfDst = dstImage.data + widthStep*(dstImage.rows - 1);
 		for (int y = 0; y <= height - 1; ++y, dataOfSrc += widthStep, dataOfDst -= widthStep)
 		{
-			// ¿½±´Ò»ĞĞ
+			// æ‹·è´ä¸€è¡Œ
 			memcpy(dataOfDst, dataOfSrc, widthStep);
 		}
 	}// VerticalFlip
 
 	void HorizontalFlip(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 	{
-		// ·ÖÅäÄÚ´æ
+		// åˆ†é…å†…å­˜
 		dstImage.Create(srcImage.rows, srcImage.cols, srcImage.numberOfChannels);
 
-		// Ã¿Ò»ĞĞ½¨Á¢²éÕÒ±í(¶ÔÃ¿Ò»¸öÍ¨µÀ½¨Á¢Ë÷Òı)
+		// æ¯ä¸€è¡Œå»ºç«‹æŸ¥æ‰¾è¡¨(å¯¹æ¯ä¸€ä¸ªé€šé“å»ºç«‹ç´¢å¼•)
 		int width = srcImage.cols;
 		int channelCount = srcImage.numberOfChannels;
 		int widthStep = width*channelCount;
@@ -390,7 +390,7 @@ namespace QQ
 
 		uchar *dataOfSrc = srcImage.data;
 		uchar *dataOfDst = dstImage.data;
-		int limit = ((width + 1) >> 1)*channelCount; // ×¢ÒâÔËËã·ûÓÅÏÈ¼¶,ÎªÊ²Ã´((width - 1) >>1)*channelCount ²»¶Ô£¿ÌáÊ¾:ÒòÎª¶àÍ¨µÀµÄÔ­Òò£¬¶Ô°ëÊ¹ÓÃ(x+1)/2
+		int limit = ((width + 1) >> 1)*channelCount; // æ³¨æ„è¿ç®—ç¬¦ä¼˜å…ˆçº§,ä¸ºä»€ä¹ˆ((width - 1) >>1)*channelCount ä¸å¯¹ï¼Ÿæç¤º:å› ä¸ºå¤šé€šé“çš„åŸå› ï¼Œå¯¹åŠä½¿ç”¨(x+1)/2
 		for (int y = 0; y <= srcImage.rows - 1; ++y, dataOfSrc += widthStep, dataOfDst += widthStep)
 		{
 			for (int x = 0; x <= limit; ++x)

@@ -7,26 +7,26 @@
 
 namespace QQ
 {
-	/////////////////////////////////////////// ÄÚ´æµÄ·ÖÅäÓëÊÍ·Å///////////////////////////////////
-	// ÊµÏÖÈÎÒâ×Ö½Ú¶ÔÆëµÄÄÚ´æ·ÖÅäºÍÊÍ·Å
+	/////////////////////////////////////////// å†…å­˜çš„åˆ†é…ä¸é‡Šæ”¾///////////////////////////////////
+	// å®ç°ä»»æ„å­—èŠ‚å¯¹é½çš„å†…å­˜åˆ†é…å’Œé‡Šæ”¾
     void *AlignedMalloc(int size, int aligned)
 	{
 		// aligned is a power of 2
 		assert((aligned&(aligned - 1)) == 0);
 
-		// ·ÖÅäÄÚ´æ¿Õ¼ä
+		// åˆ†é…å†…å­˜ç©ºé—´
 		void *data = malloc(sizeof(void *)+aligned + size);
 		//printf("data:%d\n", data);
 
-		// µØÖ·¶ÔÆë£¬temp´æ·ÅµÄ¾ÍÊÇµØÖ·
+		// åœ°å€å¯¹é½ï¼Œtempå­˜æ”¾çš„å°±æ˜¯åœ°å€
 		void **temp = (void **)data + 1;
 		void **alignedData = (void **)(((size_t)temp + aligned - 1)&-aligned);
 		//printf("alignedData:%d\n", alignedData);
 
-		// ±£´æÔ­Ê¼ÄÚ´æµØÖ·
+		// ä¿å­˜åŸå§‹å†…å­˜åœ°å€
 		alignedData[-1] = data;
 
-		return alignedData;  // ±»×ª»»ÎªÒ»¼¶Ö¸Õë
+		return alignedData;  // è¢«è½¬æ¢ä¸ºä¸€çº§æŒ‡é’ˆ
 	}
 
 	void AlignedFree(void *data)

@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// ÂË²¨
+// æ»¤æ³¢
 // 2014-12-10,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -16,22 +16,22 @@
 namespace QQ
 {
 
-// ¾ùÖµÂË²¨(V4.0)
+// å‡å€¼æ»¤æ³¢(V4.0)
 DLL_EXPORTS void Blur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, Size kernelSize);
 
-// ÖĞÖµÂË²¨(V4.0)
-// width_Aperture:»¬¶¯´°¿Ú´óĞ¡
+// ä¸­å€¼æ»¤æ³¢(V4.0)
+// width_Aperture:æ»‘åŠ¨çª—å£å¤§å°
 DLL_EXPORTS void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aperture);
 
-// ¸ßË¹ÂË²¨
-// sigma£º±ê×¼²î£¬³£ÓÃÖµ£º0.84089642
+// é«˜æ–¯æ»¤æ³¢
+// sigmaï¼šæ ‡å‡†å·®ï¼Œå¸¸ç”¨å€¼ï¼š0.84089642
 DLL_EXPORTS void GaussianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double sigma);
 
-// Gabor ÂË²¨,»ñÈ¡GaborÂË²¨ºË
+// Gabor æ»¤æ³¢,è·å–Gaboræ»¤æ³¢æ ¸
 // D:\Library\OpenCV\OpenCV_2.4.12\sources\modules\imgproc\src\gabor.cpp
 DLL_EXPORTS Mat<float> GetGaborKernel(Size ksize, double sigma, double theta, double lambd, double gamma, double psi = PI*0.5);
 
-// ¾í»ıÔËËã(Convolution22),Ö»Ö§³Öµ¥Í¨µÀ
+// å·ç§¯è¿ç®—(Convolution22),åªæ”¯æŒå•é€šé“
 DLL_EXPORTS void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar> &dstImage);
 
 

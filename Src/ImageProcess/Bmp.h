@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
-// ¶ÁÐ´BMPÍ¼
-// 2014-11-12£¬by QQ
+// è¯»å†™BMPå›¾
+// 2014-11-12ï¼Œby QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
@@ -18,13 +18,13 @@ using namespace std;
 namespace QQ
 {
 
-// ¶ÁBMP
+// è¯»BMP
 DLL_EXPORTS void ReadBmp(const string &fileName,Mat<uchar> &image);
 
-// Ð´BMP
+// å†™BMP
 DLL_EXPORTS void WriteBmp(const string &fileName, const Mat<uchar> &image);
 
-// ±ê¼ÇBMPÍ¼
+// æ ‡è®°BMPå›¾
 DLL_EXPORTS void WriteMarkedBMP(const string &fileName, const Mat<uchar>& image);
 
 }//namespace QQ

@@ -9,12 +9,12 @@ namespace QQ
 
 void RGB2Gray(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 {
-	// ²ÎÊı¼ì²é£¬ÄÚ´æ·ÖÅä
+	// å‚æ•°æ£€æŸ¥ï¼Œå†…å­˜åˆ†é…
 	assert(srcImage.numberOfChannels == 3 && "srcImage.numberOfChannels==3");
 	dstImage.Create(srcImage.rows,srcImage.cols,1);
 	
 
-	//¹¹½¨²éÕÒ±í
+	//æ„å»ºæŸ¥æ‰¾è¡¨
 	int LUTR[256],LUTG[256],LUTB[256];
 	for (int i=0;i<=255;++i)
 	{
@@ -23,7 +23,7 @@ void RGB2Gray(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 		LUTB[i]=0.114*(i<<16);
 	}
 
-	//ÀûÓÃ²éÕÒ±í»Ò¶È»¯
+	//åˆ©ç”¨æŸ¥æ‰¾è¡¨ç°åº¦åŒ–
 	int pixelCount=srcImage.rows*srcImage.cols;
 	uchar *dataOfSrc=srcImage.data;
 	uchar *dataOfDst=dstImage.data;
@@ -39,7 +39,7 @@ void RGB2Gray(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 
 int ComputeMeanGray(const Mat<uchar> &srcImage)
 {
-	// ²ÎÊı¼ì²é
+	// å‚æ•°æ£€æŸ¥
 	assert(srcImage.numberOfChannels == 1 && "srcImage.numberOfChannels==1");
 
 	uchar *data = srcImage.data;
@@ -55,11 +55,11 @@ void EqualizeHistogram(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 {
 	dstImage.Create(srcImage.rows, srcImage.cols, 1);
 
-	// Çó»Ò¶ÈÖ±·½Í¼
+	// æ±‚ç°åº¦ç›´æ–¹å›¾
 	Mat<int> historgam;
 	CalculateHistogram(srcImage, historgam);
 
-	// ÇóÀÛ¼Æ·Ö²¼Ö±·½Í¼£¬½«ÀÛ¼ÆÖ±·½Í¼×÷Îª»Ò¶È±ä»»º¯Êı(LUT)
+	// æ±‚ç´¯è®¡åˆ†å¸ƒç›´æ–¹å›¾ï¼Œå°†ç´¯è®¡ç›´æ–¹å›¾ä½œä¸ºç°åº¦å˜æ¢å‡½æ•°(LUT)
 	int *dataOfHistogram = (int *)historgam.data;
 	int LUT[256];
 	LUT[0] = 0;
@@ -68,11 +68,11 @@ void EqualizeHistogram(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 	for (int i = 1; i <= 255; ++i)
 	{
 		sum += dataOfHistogram[i];
-		LUT[i] = 255 * sum / pixelCount;//ÀÛ¼Ó¸ÅÂÊ
+		LUT[i] = 255 * sum / pixelCount;//ç´¯åŠ æ¦‚ç‡
 	}
 
 
-	// »Ò¶È±ä»»
+	// ç°åº¦å˜æ¢
 	uchar *dataOfSrc = srcImage.data;
 	uchar *dataOfDst = dstImage.data;
 	for (int i = 0; i <= pixelCount - 1; ++i)

@@ -3,15 +3,15 @@
 #include "Bmp.h"
 #include "CommonDefinition.h"
 #if (defined WIN32 || defined _WIN32)
-#include "BmpDefinition_Windows.h" // ÔÚLinuxÖĞÊ¹ÓÃ BmpDefinition_Linux.h
+#include "BmpDefinition_Windows.h" // åœ¨Linuxä¸­ä½¿ç”¨ BmpDefinition_Linux.h
 #else
 #include "BmpDefinition_Linux.h"
 #endif
 
 namespace QQ
 {
-///¶ÁÈ¡8Î»»òÕß24Î»Bmp
-///·µ»ØÔ­Ê¼Í¼ÏñÊı¾İ£¬Î´¶ÔÆëµÄÊı¾İ
+///è¯»å–8ä½æˆ–è€…24ä½Bmp
+///è¿”å›åŸå§‹å›¾åƒæ•°æ®ï¼Œæœªå¯¹é½çš„æ•°æ®
 static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCount_PerPixel)
 {
 	FILE *fp;
@@ -24,7 +24,7 @@ static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCo
 	if ((fp = fopen(fileName, "rb")) == NULL)
 		return NULL;
 
-	// ¶ÁÈëÎÄ¼şÍ·ºÍĞÅÏ¢Í·ÄÚµÄĞÅÏ¢
+	// è¯»å…¥æ–‡ä»¶å¤´å’Œä¿¡æ¯å¤´å†…çš„ä¿¡æ¯
 	if (fread((void *)&bitmap_FileHeader, 1, sizeof(BITMAPFILEHEADER), fp) != sizeof(BITMAPFILEHEADER))
 		isSuccess = false;
 	if (fread((void *)&bitmap_InfoHeader, 1, sizeof(BITMAPINFOHEADER), fp) != sizeof(BITMAPINFOHEADER))
@@ -36,22 +36,22 @@ static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCo
 	}
 	width = bitmap_InfoHeader.biWidth;
 	height = bitmap_InfoHeader.biHeight;
-	bitCount_PerPixel = bitmap_InfoHeader.biBitCount;//Ã¿ÏñËØÎ»Êı
+	bitCount_PerPixel = bitmap_InfoHeader.biBitCount;//æ¯åƒç´ ä½æ•°
 	int ucharCount_PerPixel = bitCount_PerPixel / 8;
 	int dataSize = bitmap_InfoHeader.biSizeImage;
 
-	// ¶ÁÈëÑÕÉ«±í(8Î»µÄÓĞ£¬24Î»µÄÃ»ÓĞ)
+	// è¯»å…¥é¢œè‰²è¡¨(8ä½çš„æœ‰ï¼Œ24ä½çš„æ²¡æœ‰)
 	if (bitCount_PerPixel == 8)
 	{
-		//ÉêÇëÑÕÉ«±íËùĞèÒªµÄ¿Õ¼ä£¬¶ÁÑÕÉ«±í½øÄÚ´æ
+		//ç”³è¯·é¢œè‰²è¡¨æ‰€éœ€è¦çš„ç©ºé—´ï¼Œè¯»é¢œè‰²è¡¨è¿›å†…å­˜
 		colorTable = new RGBQUAD[256];
 		int count = fread(colorTable, sizeof(RGBQUAD), 256, fp);
-		if (count != 256)//¶ÁÈ¡ÑÕÉ«±í´íÎó
+		if (count != 256)//è¯»å–é¢œè‰²è¡¨é”™è¯¯
 		{
 			isSuccess = false;
 			return NULL;
 		}
-		//Êä³öÑÕÉ«±íĞÅÏ¢½á¹¹Ìå
+		//è¾“å‡ºé¢œè‰²è¡¨ä¿¡æ¯ç»“æ„ä½“
 		/*FILE *outFile;
 		fopen_s(&outFile, "D:output.txt", "w");
 		for (int i = 0; i < 256; i++)
@@ -65,12 +65,12 @@ static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCo
 	}
 
 
-	// ¶ÁÈ¡Í¼ÏñÊı¾İ	
-	// ¶ÁÈ¡Í¼ÏñÊı¾İ£¬ÓÉÓÚBMPÉ¨Ãè·½Ê½ÊÇ´ÓÏÂµ½ÉÏ£¬ËùÒÔBMPÍ¼Ïñ´æ´¢·½Ê½ÊÇ´ÓÏÂµ½ÉÏ£¬ËùÒÔ¶ÁµÄÊ±ºò£¬ĞèÒªµ¹×Å¶ÁÈ¡
-	int ucharCount_PerLine = (width*ucharCount_PerPixel + 3) / 4 * 4;//´æ´¢ÖĞ£¬Ã¿ĞĞ×Ö½ÚÊı(4×Ö½Ú¶ÔÆë)
+	// è¯»å–å›¾åƒæ•°æ®	
+	// è¯»å–å›¾åƒæ•°æ®ï¼Œç”±äºBMPæ‰«ææ–¹å¼æ˜¯ä»ä¸‹åˆ°ä¸Šï¼Œæ‰€ä»¥BMPå›¾åƒå­˜å‚¨æ–¹å¼æ˜¯ä»ä¸‹åˆ°ä¸Šï¼Œæ‰€ä»¥è¯»çš„æ—¶å€™ï¼Œéœ€è¦å€’ç€è¯»å–
+	int ucharCount_PerLine = (width*ucharCount_PerPixel + 3) / 4 * 4;//å­˜å‚¨ä¸­ï¼Œæ¯è¡Œå­—èŠ‚æ•°(4å­—èŠ‚å¯¹é½)
 	uchar *image_Src = new uchar[height*width*ucharCount_PerPixel];
 	uchar temp;
-	int extend = ucharCount_PerLine - width*ucharCount_PerPixel;//Ã¿ĞĞÓÉÓÚËÄ×Ö½Ú¶ÔÆä¶øĞèÒª²¹³äµÄ×Ö½ÚÊı
+	int extend = ucharCount_PerLine - width*ucharCount_PerPixel;//æ¯è¡Œç”±äºå››å­—èŠ‚å¯¹å…¶è€Œéœ€è¦è¡¥å……çš„å­—èŠ‚æ•°
 	for (int i = 0; i<height; i++)
 	{
 		int readCount = fread(image_Src + (height - 1 - i)*width * ucharCount_PerPixel, sizeof(uchar), width* ucharCount_PerPixel, fp);
@@ -81,7 +81,7 @@ static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCo
 			image_Src = NULL;
 			return NULL;
 		}
-		for (int k = 0; k<extend; k++) // À©³äµÄÊı¾İ
+		for (int k = 0; k<extend; k++) // æ‰©å……çš„æ•°æ®
 		{
 			if (fread(&temp, sizeof(uchar), 1, fp) != 1)
 			{
@@ -99,8 +99,8 @@ static uchar *ReadBmp_C(const char * fileName,int &width, int &height,int &bitCo
 
 
 
-////Ğ´ÈëÔ­Ê¼Í¼ÏñÊı¾İ£¬Î´¶ÔÆëµÄÊı¾İ
-///8Î»»òÕß24Î»
+////å†™å…¥åŸå§‹å›¾åƒæ•°æ®ï¼Œæœªå¯¹é½çš„æ•°æ®
+///8ä½æˆ–è€…24ä½
 static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileName,int bitCount_PerPixel)
 {
 	FILE * fp;
@@ -109,15 +109,15 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 	int colorTableSize = 0;
 	int i;
 	bool isSuccess = true;
-	uchar p[4];//ÑÕÉ«±í
+	uchar p[4];//é¢œè‰²è¡¨
 
 	if ((fp = fopen(fileName, "wb")) == NULL)
 	{
 		return false;
 	}
 
-	// Ğ´ÎÄ¼şÍ·fileHeader
-	// ÎÄ¼şÍ·+ĞÅÏ¢Í·+ÑÕÉ«±í
+	// å†™æ–‡ä»¶å¤´fileHeader
+	// æ–‡ä»¶å¤´+ä¿¡æ¯å¤´+é¢œè‰²è¡¨
 	bitmapFileHeader.bfType = ((WORD)('M' << 8) | 'B');
 	if (bitCount_PerPixel == 8)//8bit Bmp
 	{
@@ -125,7 +125,7 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 	}
 	bitmapFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER)+colorTableSize;
 	int ucharCount_PerPixel = bitCount_PerPixel / 8;
-	int ucharCount_PerLine = (width*ucharCount_PerPixel + 3) / 4 * 4;//4×Ö½Ú¶ÔÆë
+	int ucharCount_PerLine = (width*ucharCount_PerPixel + 3) / 4 * 4;//4å­—èŠ‚å¯¹é½
 	bitmapFileHeader.bfSize = bitmapFileHeader.bfOffBits + ucharCount_PerLine*height;
 	bitmapFileHeader.bfReserved1 = 0;
 	bitmapFileHeader.bfReserved2 = 0;
@@ -133,14 +133,14 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 		isSuccess = false;
 
 
-	// Ğ´ĞÅÏ¢Í·
+	// å†™ä¿¡æ¯å¤´
 	bitmapInfoHeader.biSize = 40;
 	bitmapInfoHeader.biWidth = width;
 	bitmapInfoHeader.biHeight = height;
 	bitmapInfoHeader.biPlanes = 1;
 	bitmapInfoHeader.biBitCount = bitCount_PerPixel;
 	bitmapInfoHeader.biCompression = 0;
-	bitmapInfoHeader.biSizeImage = height*ucharCount_PerLine;//Í¼ÏñÊı¾İ²¿·Ö£¬4×Ö½Ú¶ÔÆë
+	bitmapInfoHeader.biSizeImage = height*ucharCount_PerLine;//å›¾åƒæ•°æ®éƒ¨åˆ†ï¼Œ4å­—èŠ‚å¯¹é½
 	bitmapInfoHeader.biXPelsPerMeter = 0;
 	bitmapInfoHeader.biYPelsPerMeter = 0;
 	bitmapInfoHeader.biClrUsed = 0;
@@ -148,11 +148,11 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 	if (fwrite((void *)&bitmapInfoHeader, 1, sizeof(BITMAPINFOHEADER), fp) != sizeof(BITMAPINFOHEADER))
 		isSuccess = false;
 
-	// Ğ´ÈëÑÕÉ«±í(8Î»ÓĞÑÕÉ«±í£¬24Î»µÄÃ»ÓĞÑÕÉ«±í)
-	///8Î»BMPÍ¼ÏñÊı¾İ²¿·Ö´æ´¢µÄÊÇÑÕÉ«±íµÄË÷Òı
+	// å†™å…¥é¢œè‰²è¡¨(8ä½æœ‰é¢œè‰²è¡¨ï¼Œ24ä½çš„æ²¡æœ‰é¢œè‰²è¡¨)
+	///8ä½BMPå›¾åƒæ•°æ®éƒ¨åˆ†å­˜å‚¨çš„æ˜¯é¢œè‰²è¡¨çš„ç´¢å¼•
 	if (bitCount_PerPixel == 8)
 	{
-		for (i = 0, p[3] = 0; i<256; i++)//8Î»ÑÕÉ«±í³¤¶È256£¬4Î»Îª16
+		for (i = 0, p[3] = 0; i<256; i++)//8ä½é¢œè‰²è¡¨é•¿åº¦256ï¼Œ4ä½ä¸º16
 		{
 			p[3] = 0;
 			p[0] = i;//B
@@ -167,8 +167,8 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 	}
 
 
-	// Ğ´ÈëÍ¼ÏñÊı¾İ
-	// ÓÉÓÚBMPÉ¨Ãè·½Ê½ÊÇ´ÓÏÂµ½ÉÏ£¬ËùÒÔBMPÍ¼Ïñ´æ´¢·½Ê½ÊÇ´ÓÏÂµ½ÉÏ£¬ËùÒÔĞ´µÄÊ±ºò£¬ĞèÒªµ¹×ÅĞ´
+	// å†™å…¥å›¾åƒæ•°æ®
+	// ç”±äºBMPæ‰«ææ–¹å¼æ˜¯ä»ä¸‹åˆ°ä¸Šï¼Œæ‰€ä»¥BMPå›¾åƒå­˜å‚¨æ–¹å¼æ˜¯ä»ä¸‹åˆ°ä¸Šï¼Œæ‰€ä»¥å†™çš„æ—¶å€™ï¼Œéœ€è¦å€’ç€å†™
 	int extend = ucharCount_PerLine - width * ucharCount_PerPixel;
 	int writeCount;
 	uchar *temp;
@@ -178,7 +178,7 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 		{
 			writeCount = fwrite((void *)temp, 1, width * ucharCount_PerPixel, fp);
 			if (writeCount != (unsigned int)(ucharCount_PerPixel * width))
-				isSuccess = false; // ÕæÊµµÄÊı¾İ
+				isSuccess = false; // çœŸå®çš„æ•°æ®
 		}
 	}
 	else
@@ -187,8 +187,8 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 		{
 			writeCount = fwrite((void *)temp, 1, width * ucharCount_PerPixel, fp);
 			if (writeCount != (unsigned int)(ucharCount_PerPixel * width))
-				isSuccess = false; // ÕæÊµµÄÊı¾İ
-			for (i = 0; i<extend; i++) // À©³äµÄÊı¾İ£¬Êı¾İÄÚÈİ²»ÏŞ
+				isSuccess = false; // çœŸå®çš„æ•°æ®
+			for (i = 0; i<extend; i++) // æ‰©å……çš„æ•°æ®ï¼Œæ•°æ®å†…å®¹ä¸é™
 			{
 				writeCount = fwrite((void *)(temp + ucharCount_PerPixel* (width - 1)), 1, 1, fp);
 				if (writeCount != 1)
@@ -201,7 +201,7 @@ static bool WriteBmp_C(uchar *imageData, int width, int height,const char *fileN
 	return isSuccess;
 }
 
-//»Ò¶ÈÍ¼ÖĞÓÃÑÕÉ«±ê¼ÇĞÅÏ¢
+//ç°åº¦å›¾ä¸­ç”¨é¢œè‰²æ ‡è®°ä¿¡æ¯
 static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * filename)
 {
 
@@ -211,16 +211,16 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 	int colorTableSize = 0;
 	int i;
 	bool isSuccess = true;
-	uchar colorTableItem[4];//ÑÕÉ«±íÏî
-	int bitCount_PerPixel = 8;//BmpÃ¿¸öÏñËØµÄÎ»Êı
+	uchar colorTableItem[4];//é¢œè‰²è¡¨é¡¹
+	int bitCount_PerPixel = 8;//Bmpæ¯ä¸ªåƒç´ çš„ä½æ•°
 
 	if ((fp = fopen(filename, "w+b")) == NULL)
 	{
 		return false;
 	}
 
-	// Ğ´ÎÄ¼şÍ·fileHeader
-	// ÎÄ¼şÍ·+ĞÅÏ¢Í·+ÑÕÉ«±í
+	// å†™æ–‡ä»¶å¤´fileHeader
+	// æ–‡ä»¶å¤´+ä¿¡æ¯å¤´+é¢œè‰²è¡¨
 	bitmapFileHeader.bfType = ((WORD)('M' << 8) | 'B');
 	if (bitCount_PerPixel == 8)//8bit Bmp
 	{
@@ -228,21 +228,21 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 	}
 	bitmapFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER)+colorTableSize;
 	int ucharCount_PerPixel = bitCount_PerPixel / 8;
-	int ucharCount_PerLine = (width*ucharCount_PerPixel + 3) / 4 * 4;//4×Ö½Ú¶ÔÆë
+	int ucharCount_PerLine = (width*ucharCount_PerPixel + 3) / 4 * 4;//4å­—èŠ‚å¯¹é½
 	bitmapFileHeader.bfSize = bitmapFileHeader.bfOffBits + ucharCount_PerLine*height;
 	bitmapFileHeader.bfReserved1 = 0;
 	bitmapFileHeader.bfReserved2 = 0;
 	if (fwrite((void *)&bitmapFileHeader, 1, sizeof(BITMAPFILEHEADER), fp) != sizeof(BITMAPFILEHEADER))
 		isSuccess = false;
 
-	// Ğ´ĞÅÏ¢Í·
+	// å†™ä¿¡æ¯å¤´
 	bitmapInfoHeader.biSize = 40;
 	bitmapInfoHeader.biWidth = width;
 	bitmapInfoHeader.biHeight = height;
 	bitmapInfoHeader.biPlanes = 1;
 	bitmapInfoHeader.biBitCount = bitCount_PerPixel;
 	bitmapInfoHeader.biCompression = 0;
-	bitmapInfoHeader.biSizeImage = height*ucharCount_PerLine;//Í¼ÏñÊı¾İ²¿·Ö£¬4×Ö½Ú¶ÔÆë
+	bitmapInfoHeader.biSizeImage = height*ucharCount_PerLine;//å›¾åƒæ•°æ®éƒ¨åˆ†ï¼Œ4å­—èŠ‚å¯¹é½
 	bitmapInfoHeader.biXPelsPerMeter = 0;
 	bitmapInfoHeader.biYPelsPerMeter = 0;
 	bitmapInfoHeader.biClrUsed = 0;
@@ -250,44 +250,44 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 	if (fwrite((void *)&bitmapInfoHeader, 1, sizeof(BITMAPINFOHEADER), fp) != sizeof(BITMAPINFOHEADER))
 		isSuccess = false;
 
-	// Ğ´ÈëÑÕÉ«±í(8Î»ÓĞÑÕÉ«±í£¬24Î»µÄÃ»ÓĞÑÕÉ«±í),×¢ÒâÍ¨µÀË³Ğò£ºBGR
-	///8Î»BMPÍ¼ÏñÊı¾İ²¿·Ö´æ´¢µÄÊÇÑÕÉ«±íµÄË÷Òı
+	// å†™å…¥é¢œè‰²è¡¨(8ä½æœ‰é¢œè‰²è¡¨ï¼Œ24ä½çš„æ²¡æœ‰é¢œè‰²è¡¨),æ³¨æ„é€šé“é¡ºåºï¼šBGR
+	///8ä½BMPå›¾åƒæ•°æ®éƒ¨åˆ†å­˜å‚¨çš„æ˜¯é¢œè‰²è¡¨çš„ç´¢å¼•
 	if (bitCount_PerPixel == 8)
 	{
 		for (i = 0; i < 256; i++)
 		{
 			colorTableItem[3] = 0;
-			switch (i) //»¹¿ÉÒÔ¶¨ÒåÆäËûÑÕÉ«R = 0£¬B = 255, G = 255:ÇàÉ«
+			switch (i) //è¿˜å¯ä»¥å®šä¹‰å…¶ä»–é¢œè‰²R = 0ï¼ŒB = 255, G = 255:é’è‰²
 			{
-			case 255://ºìÉ«
+			case 255://çº¢è‰²
 			{
 						 colorTableItem[0] = 0;
 						 colorTableItem[1] = 0;
 						 colorTableItem[2] = 255;//R
 						 break;
 			}
-			case 254://ÂÌÉ«
+			case 254://ç»¿è‰²
 			{
 						 colorTableItem[0] = 0;
 						 colorTableItem[1] = 255;//G
 						 colorTableItem[2] = 0;
 						 break;
 			}
-			case 253://À¶É«
+			case 253://è“è‰²
 			{
 						 colorTableItem[0] = 255;//B
 						 colorTableItem[1] = 0;
 						 colorTableItem[2] = 0;
 						 break;
 			}
-			case 252://»ÆÉ«
+			case 252://é»„è‰²
 			{
 						 colorTableItem[0] = 0;//B
 						 colorTableItem[1] = 255;//G
 						 colorTableItem[2] = 255;//R
 						 break;
 			}
-			case 251://×ÏÉ«
+			case 251://ç´«è‰²
 			{
 						 colorTableItem[0] = 255;//B
 						 colorTableItem[1] = 0;//G
@@ -311,8 +311,8 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 	}
 
 
-	// Ğ´ÈëÍ¼ÏñÊı¾İ
-	// ÓÉÓÚBMPÉ¨Ãè·½Ê½ÊÇ´ÓÏÂµ½ÉÏ£¬ËùÒÔBMPÍ¼Ïñ´æ´¢·½Ê½ÊÇ´ÓÏÂµ½ÉÏ£¬ËùÒÔĞ´µÄÊ±ºò£¬ĞèÒªµ¹×ÅĞ´½øÎÄ¼ş
+	// å†™å…¥å›¾åƒæ•°æ®
+	// ç”±äºBMPæ‰«ææ–¹å¼æ˜¯ä»ä¸‹åˆ°ä¸Šï¼Œæ‰€ä»¥BMPå›¾åƒå­˜å‚¨æ–¹å¼æ˜¯ä»ä¸‹åˆ°ä¸Šï¼Œæ‰€ä»¥å†™çš„æ—¶å€™ï¼Œéœ€è¦å€’ç€å†™è¿›æ–‡ä»¶
 	int extend = ucharCount_PerLine - width * ucharCount_PerPixel;
 	uchar *temp;
 	if (extend == 0)
@@ -320,7 +320,7 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 		for (temp = image + (height - 1) * ucharCount_PerPixel * width; temp >= image; temp -= ucharCount_PerPixel * width)
 		{
 			if (fwrite((void *)temp, 1, width * ucharCount_PerPixel, fp) != (unsigned int)(ucharCount_PerPixel * width))
-				isSuccess = false; // ÕæÊµµÄÊı¾İ
+				isSuccess = false; // çœŸå®çš„æ•°æ®
 		}
 	}
 	else
@@ -328,8 +328,8 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 		for (temp = image + (height - 1) * ucharCount_PerPixel * width; temp >= image; temp -= ucharCount_PerPixel * width)
 		{
 			if (fwrite((void *)temp, 1, width * ucharCount_PerPixel, fp) != (unsigned int)(ucharCount_PerPixel * width))
-				isSuccess = false; // ÕæÊµµÄÊı¾İ
-			for (i = 0; i < extend; i++) // À©³äµÄÊı¾İ£¬Êı¾İÄÚÈİ²»ÏŞ
+				isSuccess = false; // çœŸå®çš„æ•°æ®
+			for (i = 0; i < extend; i++) // æ‰©å……çš„æ•°æ®ï¼Œæ•°æ®å†…å®¹ä¸é™
 			{
 				if (fwrite((void *)(temp + ucharCount_PerPixel* (width - 1)), 1, 1, fp) != 1)
 					isSuccess = false;
@@ -344,13 +344,13 @@ static bool WriteMarkedBmp_C(uchar *image,int width, int height, const char * fi
 
 void ReadBmp(const string &fileName, Mat<uchar> &image)
 {
-	//Í¼Ïñ²ÎÊı
+	//å›¾åƒå‚æ•°
 	int width,height,bitCount_PerPixel;
 	
-	//¶ÁBMP
+	//è¯»BMP
 	uchar *data=ReadBmp_C(fileName.c_str(),width,height,bitCount_PerPixel);
 	
-	//ÉèÖÃÍ¼ÏñÍ·
+	//è®¾ç½®å›¾åƒå¤´
 	int numberOfChannels = bitCount_PerPixel >> 3;
 	Mat<uchar> temp(height, width, numberOfChannels, data, true);
 
@@ -362,7 +362,7 @@ void ReadBmp(const string &fileName, Mat<uchar> &image)
 
 void WriteBmp(const string &fileName, const Mat<uchar> &image)
 {
-	//Ğ´Èëbmp
+	//å†™å…¥bmp
 	int bitCount_PerPixel=image.numberOfChannels<<3;
 	WriteBmp_C(image.data,image.cols,image.rows,fileName.c_str(),bitCount_PerPixel);
 }

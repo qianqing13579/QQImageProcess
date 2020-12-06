@@ -27,7 +27,7 @@ HEADERS += \
     Src/Utility/BmpDefinition_Windows.h \
     Src/Utility/CommonDefinition.h \
     Src/Utility/Mat.h \
-    Src/ImageProcessTest.h
+    Src/Samples.h
 
 SOURCES += \
     Src/ImageProcess/Bmp.cpp \
@@ -38,7 +38,7 @@ SOURCES += \
     Src/ImageProcess/Histogram.cpp \
     Src/ImageProcess/Utility.cpp \
     Src/Utility/Alloc.cpp \
-    Src/ImageProcessTest.cpp \
+    Src/Samples.cpp \
     Src/main.cpp
 
 INCLUDEPATH +=\

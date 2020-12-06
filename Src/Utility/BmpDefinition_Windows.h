@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// WindowsÏÂBmpÍ¼¶¨Òå
+// Windowsä¸‹Bmpå›¾å®šä¹‰
 // 2014-11-13,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.ww
@@ -11,14 +11,14 @@
 #ifndef __BMP_DEFINITION_WINDOWS_H__
 #define __BMP_DEFINITION_WINDOWS_H__
 
-/*************************Windows BMP ÀàĞÍ¶¨Òå******************************/
+/*************************Windows BMP ç±»å‹å®šä¹‰******************************/
 typedef unsigned long       DWORD;
 typedef int                 BOOL;
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 typedef long				LONG;
 
-#pragma  pack(1)//½ûÖ¹VC×Ö½Ú¶ÔÆë
+#pragma  pack(1)//ç¦æ­¢VCå­—èŠ‚å¯¹é½
 typedef struct tagBITMAPFILEHEADER {
 	WORD    bfType;
 	DWORD   bfSize;

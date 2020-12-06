@@ -14,12 +14,12 @@ namespace QQ
 
 	void Sobel(const Mat<uchar> &srcImage, Mat<uchar> &dstImage)
 	{
-		// Ä¿±êÍ¼Ïñ
+		// ç›®æ ‡å›¾åƒ
 		int widthOfDst = srcImage.cols;
 		int heightOfDst = srcImage.rows;
 		dstImage.Create(heightOfDst, widthOfDst, 1);
 
-		// À©³äÔ­Í¼
+		// æ‰©å……åŸå›¾
 		Mat<uchar> extendedImage;
 		CopyMakeBorder(srcImage, extendedImage, 1, 1, 1, 1);
 
@@ -47,7 +47,7 @@ namespace QQ
 	{
 		dstImage.Create(srcImage.rows,srcImage.cols, 1);
 
-		// L2·¶Êı¼ÆËã±ßÔµÇ¿¶ÈµÄÊ±ºò£¬¾àÀë²ÉÓÃÆ½·½µÄ·½Ê½£¬ËùÒÔãĞÖµÒ²ĞèÒª²ÉÓÃÆ½·½
+		// L2èŒƒæ•°è®¡ç®—è¾¹ç¼˜å¼ºåº¦çš„æ—¶å€™ï¼Œè·ç¦»é‡‡ç”¨å¹³æ–¹çš„æ–¹å¼ï¼Œæ‰€ä»¥é˜ˆå€¼ä¹Ÿéœ€è¦é‡‡ç”¨å¹³æ–¹
 		if (L2)
 		{
 			lowThreshold = MIN(32767.0, lowThreshold);
@@ -57,7 +57,7 @@ namespace QQ
 			if (highThreshold > 0) highThreshold *= highThreshold;
 		}
 
-		// ¼ÆËãfx,fy,Ç¿¶ÈÍ¼
+		// è®¡ç®—fx,fy,å¼ºåº¦å›¾
 		Mat<int> fx(srcImage.rows, srcImage.cols, 1);
 		Mat<int> fy(srcImage.rows, srcImage.cols, 1);
 		Mat<uchar> enlargedImage;
@@ -88,7 +88,7 @@ namespace QQ
 				colOffy[0] = colOfEnlargedImage[stepOfEnlargedImage - 1] + 2 * colOfEnlargedImage[stepOfEnlargedImage] + colOfEnlargedImage[stepOfEnlargedImage + 1] -
 					colOfEnlargedImage[-stepOfEnlargedImage - 1] - 2 * colOfEnlargedImage[-stepOfEnlargedImage] - colOfEnlargedImage[-stepOfEnlargedImage + 1];
 
-				// ¼ÆËã±ßÔµÇ¿¶È£¬ÓÉÓÚÖ»ÊÇÓÃÓÚ±È½Ï£¬ÎªÁË¼Ó¿ìËÙ¶È£¬Ö»¼ÆËãÆ½·½ºÍ
+				// è®¡ç®—è¾¹ç¼˜å¼ºåº¦ï¼Œç”±äºåªæ˜¯ç”¨äºæ¯”è¾ƒï¼Œä¸ºäº†åŠ å¿«é€Ÿåº¦ï¼Œåªè®¡ç®—å¹³æ–¹å’Œ
 				if (L2)
 				{
 					colOfMagnitudeImage[0] = colOffx[0] * colOffx[0] + colOffy[0] * colOffy[0];
@@ -102,10 +102,10 @@ namespace QQ
 		}
 
 
-		// ·Ç¼«´óÒÖÖÆ£¬Í¬Ê±±ê¼ÇÍ¼×ö±ê¼Ç,Ë«ãĞÖµ´¦Àí
-		//   0 - ¿ÉÄÜÊÇ±ßÔµ
-		//   1 - ²»ÊÇ±ßÔµ
-		//   2 - Ò»¶¨ÊÇ±ßÔµ
+		// éæå¤§æŠ‘åˆ¶ï¼ŒåŒæ—¶æ ‡è®°å›¾åšæ ‡è®°,åŒé˜ˆå€¼å¤„ç†
+		//   0 - å¯èƒ½æ˜¯è¾¹ç¼˜
+		//   1 - ä¸æ˜¯è¾¹ç¼˜
+		//   2 - ä¸€å®šæ˜¯è¾¹ç¼˜
 		Mat<uchar> labelImage(srcImage.rows + 2, srcImage.cols + 2, 1);
 		memset(labelImage.data, 1, labelImage.rows*labelImage.cols);
 		rowOffx = (int *)fx.data;
@@ -124,64 +124,64 @@ namespace QQ
 				int fx = colOffx[0];
 				int fy = colOffy[0];
 
-				// È¡¾ø¶ÔÖµ£¬×ª»»ÎªÕıÊı
+				// å–ç»å¯¹å€¼ï¼Œè½¬æ¢ä¸ºæ­£æ•°
 #if (defined WIN32 || defined _WIN32)
 				int abs_fx = std::abs(fx);
 				int abs_fy = std::abs(fy);
-#else  // LinuxÖĞC£«£«±ê×¼¿âÓĞ²îÒì
+#else  // Linuxä¸­Cï¼‹ï¼‹æ ‡å‡†åº“æœ‰å·®å¼‚
 				int abs_fx = abs(fx);
 				int abs_fy = abs(fy);
 #endif
 				
 
-				// ¸ÃÏñËØµã²ÅÓĞ¿ÉÄÜÊÇ±ßÔµµã
+				// è¯¥åƒç´ ç‚¹æ‰æœ‰å¯èƒ½æ˜¯è¾¹ç¼˜ç‚¹
 				if (colOfMagnitudeImage[0] > lowThreshold)
 				{
-					// ·Ç¼«´óÒÖÖÆ
-					abs_fy = abs_fy << CANNY_SHIFT; // ¶ÔÕıÊıÖ±½ÓÒÆÎ»
+					// éæå¤§æŠ‘åˆ¶
+					abs_fy = abs_fy << CANNY_SHIFT; // å¯¹æ­£æ•°ç›´æ¥ç§»ä½
 
-					// ÔÚ³ËÒÔ½ÏĞ¡µÄ¸¡µãÊıµÄÊ±ºò£¬ĞèÒª½øĞĞÊı¾İÀàĞÍ×ª»»
+					// åœ¨ä¹˜ä»¥è¾ƒå°çš„æµ®ç‚¹æ•°çš„æ—¶å€™ï¼Œéœ€è¦è¿›è¡Œæ•°æ®ç±»å‹è½¬æ¢
 					int tan225 = abs_fx * TAN_225;
 					int tan675 = abs_fx * TAN_675;
 
-					// Ìİ¶È·½Ïò0¡ã
+					// æ¢¯åº¦æ–¹å‘0Â°
 					if (abs_fy< tan225)
 					{
-						// ¼«´óÖµ£¬ÓĞ¿ÉÄÜÊÇ±ßÔµ
+						// æå¤§å€¼ï¼Œæœ‰å¯èƒ½æ˜¯è¾¹ç¼˜
 						if (colOfMagnitudeImage[0] >= colOfMagnitudeImage[-1] && colOfMagnitudeImage[0] >= colOfMagnitudeImage[1])
 						{
-							// ´óÓÚ¸ßãĞÖµ£¬ÊÇ±ßÔµ£¬±ê¼ÇÎª2
+							// å¤§äºé«˜é˜ˆå€¼ï¼Œæ˜¯è¾¹ç¼˜ï¼Œæ ‡è®°ä¸º2
 							if (colOfMagnitudeImage[0] > highThreshold)
 							{
-								// ½øÈë¶ÓÁĞ£¬²¢ÉèÖÃ±ê¼Ç
+								// è¿›å…¥é˜Ÿåˆ—ï¼Œå¹¶è®¾ç½®æ ‡è®°
 								colOfLabelImage[0] = 2;
 								queueOfEdgePixel.push(colOfLabelImage);
 							}
 							else
 							{
-								// ÓĞ¿ÉÄÜÊÇ±ßÔµ£¬±ê¼ÇÎª0
+								// æœ‰å¯èƒ½æ˜¯è¾¹ç¼˜ï¼Œæ ‡è®°ä¸º0
 								colOfLabelImage[0] = 0;
 
 							}
 						}
 					}
 
-					// Ìİ¶È·½Ïò90¡ã
+					// æ¢¯åº¦æ–¹å‘90Â°
 					if (abs_fy>tan675)
 					{
-						// ¼«´óÖµ£¬ÓĞ¿ÉÄÜÊÇ±ßÔµ
+						// æå¤§å€¼ï¼Œæœ‰å¯èƒ½æ˜¯è¾¹ç¼˜
 						if (colOfMagnitudeImage[0] >= colOfMagnitudeImage[stepOfEnlargedImage] && colOfMagnitudeImage[0] >= colOfMagnitudeImage[-stepOfEnlargedImage])
 						{
-							// ´óÓÚ¸ßãĞÖµ£¬ÊÇ±ßÔµ£¬±ê¼ÇÎª2
+							// å¤§äºé«˜é˜ˆå€¼ï¼Œæ˜¯è¾¹ç¼˜ï¼Œæ ‡è®°ä¸º2
 							if (colOfMagnitudeImage[0] > highThreshold)
 							{
-								// ½øÈë¶ÓÁĞ£¬²¢ÉèÖÃ±ê¼Ç
+								// è¿›å…¥é˜Ÿåˆ—ï¼Œå¹¶è®¾ç½®æ ‡è®°
 								colOfLabelImage[0] = 2;
 								queueOfEdgePixel.push(colOfLabelImage);
 							}
 							else
 							{
-								// ÓĞ¿ÉÄÜÊÇ±ßÔµ£¬±ê¼ÇÎª0
+								// æœ‰å¯èƒ½æ˜¯è¾¹ç¼˜ï¼Œæ ‡è®°ä¸º0
 								colOfLabelImage[0] = 0;
 
 							}
@@ -190,23 +190,23 @@ namespace QQ
 
 					}
 
-					// Ìİ¶È·½Ïò45¡ã/-45¡ã
+					// æ¢¯åº¦æ–¹å‘45Â°/-45Â°
 					if (abs_fy > tan225&&abs_fy<tan675)
 					{
 						int s = (fy*fx) < 0 ? -1 : 1;
-						// ¼«´óÖµ£¬ÓĞ¿ÉÄÜÊÇ±ßÔµ
+						// æå¤§å€¼ï¼Œæœ‰å¯èƒ½æ˜¯è¾¹ç¼˜
 						if (colOfMagnitudeImage[0] >= colOfMagnitudeImage[-stepOfEnlargedImage - s] && colOfMagnitudeImage[0] >= colOfMagnitudeImage[stepOfEnlargedImage + s])
 						{
-							// ´óÓÚ¸ßãĞÖµ£¬ÊÇ±ßÔµ£¬±ê¼ÇÎª2
+							// å¤§äºé«˜é˜ˆå€¼ï¼Œæ˜¯è¾¹ç¼˜ï¼Œæ ‡è®°ä¸º2
 							if (colOfMagnitudeImage[0] > highThreshold)
 							{
-								// ½øÈë¶ÓÁĞ£¬²¢ÉèÖÃ±ê¼Ç
+								// è¿›å…¥é˜Ÿåˆ—ï¼Œå¹¶è®¾ç½®æ ‡è®°
 								colOfLabelImage[0] = 2;
 								queueOfEdgePixel.push(colOfLabelImage);
 							}
 							else
 							{
-								// ÓĞ¿ÉÄÜÊÇ±ßÔµ£¬±ê¼ÇÎª0
+								// æœ‰å¯èƒ½æ˜¯è¾¹ç¼˜ï¼Œæ ‡è®°ä¸º0
 								colOfLabelImage[0] = 0;
 
 							}
@@ -220,15 +220,15 @@ namespace QQ
 
 		}
 
-		// Á¬½ÓĞÔ·ÖÎö,ÕâÀï²ÉÓÃ¶ÓÁĞÊµÏÖ£¬Ò²¿ÉÒÔ²ÉÓÃÕ»ÊµÏÖ
-		// ×¢Òâ£¬ÕâÀï²ÉÓÃµİ¹é·ÖÎö
-		// Èç¹ûAÏñËØÎª0£¬Óë2ÔÚ8ÁìÓòÁ¬½Ó£¬ÄÇÃ´±ê¼ÇÎª2£¬Èç¹û´ËÊ±ÓĞÏñËØÖµÎª0µÄÏñËØÓëAÏàÁÚ£¬Ôò±»±ê¼ÇÎª2,
+		// è¿æ¥æ€§åˆ†æ,è¿™é‡Œé‡‡ç”¨é˜Ÿåˆ—å®ç°ï¼Œä¹Ÿå¯ä»¥é‡‡ç”¨æ ˆå®ç°
+		// æ³¨æ„ï¼Œè¿™é‡Œé‡‡ç”¨é€’å½’åˆ†æ
+		// å¦‚æœAåƒç´ ä¸º0ï¼Œä¸2åœ¨8é¢†åŸŸè¿æ¥ï¼Œé‚£ä¹ˆæ ‡è®°ä¸º2ï¼Œå¦‚æœæ­¤æ—¶æœ‰åƒç´ å€¼ä¸º0çš„åƒç´ ä¸Aç›¸é‚»ï¼Œåˆ™è¢«æ ‡è®°ä¸º2,
 		while (!queueOfEdgePixel.empty())
 		{
 			uchar *m = queueOfEdgePixel.front();
 			queueOfEdgePixel.pop();
 
-			// ÔÚ8ÁìÓòËÑË÷
+			// åœ¨8é¢†åŸŸæœç´¢
 			if (!m[-1])
 			{
 				m[-1] = 2;
@@ -272,7 +272,7 @@ namespace QQ
 			}
 		}
 
-		// ×îºóÉú³É±ßÔµÍ¼
+		// æœ€åç”Ÿæˆè¾¹ç¼˜å›¾
 		rowOfLabelImage = labelImage.data + stepOfEnlargedImage + 1;
 		uchar *rowOfDst = dstImage.data;
 		for (int y = 0; y <= height - 1; ++y, rowOfLabelImage += stepOfEnlargedImage, rowOfDst += stepOffx)

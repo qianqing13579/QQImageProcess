@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// ³£ÓÃ¹¤¾ß
+// å¸¸ç”¨å·¥å…·
 // 2016-12-25,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -16,11 +16,11 @@
 namespace QQ
 {
 
-// ±ß½çÀ©³ä£¬Ê¹ÓÃ0À©³ä
+// è¾¹ç•Œæ‰©å……ï¼Œä½¿ç”¨0æ‰©å……
 DLL_EXPORTS void CopyMakeBorder(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int top, int bottom, int left, int right);
 
-// ¼ÆËã»ý·ÖÍ¼(CalculateIntegralImage)
-//dstImage:»ý·ÖÍ¼
+// è®¡ç®—ç§¯åˆ†å›¾(CalculateIntegralImage)
+//dstImage:ç§¯åˆ†å›¾
 DLL_EXPORTS void ComputeIntegralImage(const Mat<uchar> &srcImage, Mat<int> &dstImage);
 
 }//end of namespace QQ

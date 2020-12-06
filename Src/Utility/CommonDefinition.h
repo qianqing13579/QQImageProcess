@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// Í¨ÓÃ¶¨Òå
+// é€šç”¨å®šä¹‰
 // 2014-11-13,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -43,14 +43,14 @@ namespace QQ
 #define LOG2 0.69314718055994530941723212145818
 
 
-//½Ç¶È×ª»»
-#define DEGREE2RADIAN(x) (x*PI/180)//½Ç¶È×ª»¡¶È
-#define RADIAN2DEGREE(x) (x*180/PI)//»¡¶È×ª½Ç¶È
+//è§’åº¦è½¬æ¢
+#define DEGREE2RADIAN(x) (x*PI/180)//è§’åº¦è½¬å¼§åº¦
+#define RADIAN2DEGREE(x) (x*180/PI)//å¼§åº¦è½¬è§’åº¦
 
 #define  DESCALE(x,n)  (((x)+(1 << ((n)-1))) >> (n))
 //#define  DESCALE(x,n)  ((x) >> (n)) 
 
-// ±¥ºÍÔËËã
+// é¥±å’Œè¿ç®—
 #define  SATURATE(x)   (uchar)(((x) & ~255) == 0 ? (x) : ~((x)>>31))
 
 // memory deallocation
@@ -64,25 +64,25 @@ typedef unsigned char uchar;
 typedef unsigned short ushort; // 2 uchars
 typedef unsigned int uint;  // 4 uchars
 
-//Resize:interpolation methods²îÖµ·½Ê½
+//Resize:interpolation methodså·®å€¼æ–¹å¼
 enum
 {
-	NEAREST   =0,//×î½üÁÚ²îÖµ
-	LINEAR    =1,//Ë«ÏßĞÔ²åÖµ,Í¼ÏñËõĞ¡Ê±ºò£¬ÈİÒ×³öÏÖ²¨ÎÆ
-	AREA      =2//ÏñËØ¹ØÏµÖØ²ÉÑù
+	NEAREST   =0,//æœ€è¿‘é‚»å·®å€¼
+	LINEAR    =1,//åŒçº¿æ€§æ’å€¼,å›¾åƒç¼©å°æ—¶å€™ï¼Œå®¹æ˜“å‡ºç°æ³¢çº¹
+	AREA      =2//åƒç´ å…³ç³»é‡é‡‡æ ·
 };
 
 /////////////////////////////Scalar/////////////////////////////////////////////
-// ±íÊ¾ÏñËØÖµ
+// è¡¨ç¤ºåƒç´ å€¼
 class Scalar
 {
 public:
-	//³ÉÔ±º¯Êı
-	//¹¹Ôìº¯Êı
-	Scalar(double val0=0, double val1=0,double val2=0, double val3=0);//Ä¬ÈÏ¶¼Îª0
+	//æˆå‘˜å‡½æ•°
+	//æ„é€ å‡½æ•°
+	Scalar(double val0=0, double val1=0,double val2=0, double val3=0);//é»˜è®¤éƒ½ä¸º0
 	Scalar(const Scalar &scalar);
 	
-	//³ÉÔ±±äÁ¿
+	//æˆå‘˜å˜é‡
 	double val[4];
 };
 inline Scalar::Scalar(double val0, double val1,double val2, double val3)
@@ -104,13 +104,13 @@ inline Scalar::Scalar(const Scalar &scalar)
 class Size
 {
 public:
-	//³ÉÔ±º¯Êı
-	//¹¹Ôìº¯Êı
+	//æˆå‘˜å‡½æ•°
+	//æ„é€ å‡½æ•°
 	Size();
 	Size(int _width,int _height);
 	Size(const Size &size);
 
-	//³ÉÔ±±äÁ¿
+	//æˆå‘˜å˜é‡
 	int width;
 	int height;
 
@@ -124,13 +124,13 @@ inline Size::Size(const Size &size):width(size.width),height(size.height){}
 class Vec3b
 {
 public:
-	//¹¹Ôìº¯Êı
-	Vec3b(uchar val0 = 0, uchar val1 = 0, uchar val2 = 0);//Ä¬ÈÏ¶¼Îª0
+	//æ„é€ å‡½æ•°
+	Vec3b(uchar val0 = 0, uchar val1 = 0, uchar val2 = 0);//é»˜è®¤éƒ½ä¸º0
 	Vec3b(const Vec3b &vec3b);
 
 	inline uchar& operator[](int i);
 
-	//³ÉÔ±±äÁ¿
+	//æˆå‘˜å˜é‡
 	uchar val[3];
 };
 inline Vec3b::Vec3b(uchar val0, uchar val1, uchar val2)
@@ -155,11 +155,11 @@ inline uchar& Vec3b::operator[](int i)
 class Point
 {
 public:
-    //¹¹Ôìº¯Êı
+    //æ„é€ å‡½æ•°
 	Point() :x(0), y(0){}
 	Point(int _x, int _y) :x(_x), y(_y){}
 
-	//³ÉÔ±±äÁ¿
+	//æˆå‘˜å˜é‡
 	int x, y;
 };
 

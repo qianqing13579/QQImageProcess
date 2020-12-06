@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// ¾ØÕóÀà(ImageµÄÉı¼¶°æ)
+// çŸ©é˜µç±»(Imageçš„å‡çº§ç‰ˆ)
 // 2016-12-24,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -24,27 +24,27 @@ template <typename T>
 class  DLL_EXPORTS Mat
 {
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	Mat();
 	Mat(int _rows, int _cols, int _numberOfChannels);
 	Mat(int _rows, int _cols, int _numberOfChannels, Scalar scalar); 
-	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// Íâ²¿Êı¾İ_dataĞèÒªÍâ²¿ÊÍ·Å
+	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// å¤–éƒ¨æ•°æ®_dataéœ€è¦å¤–éƒ¨é‡Šæ”¾
 	
-	//Îö¹¹º¯Êı
-	virtual ~Mat();//µ÷ÓÃRelease()
-	void Release();//ÒıÓÃ¼ÆÊı¼õ1
-	void Deallocate();//ÊÍ·ÅÊı¾İ
+	//ææ„å‡½æ•°
+	virtual ~Mat();//è°ƒç”¨Release()
+	void Release();//å¼•ç”¨è®¡æ•°å‡1
+	void Deallocate();//é‡Šæ”¾æ•°æ®
 
-	//×Ô¶¯·ÖÅäÄÚ´æ
+	//è‡ªåŠ¨åˆ†é…å†…å­˜
 	void Create(int _rows, int _cols, int _numberOfChannels);
 	void Create(Size _size, int _numberOfChannels);
 
-	//ÖØÔØ¸³Öµ²Ù×÷·û
-	Mat& operator = (const Mat &dstMat);//¹²ÏíÊı¾İ
+	//é‡è½½èµ‹å€¼æ“ä½œç¬¦
+	Mat& operator = (const Mat &dstMat);//å…±äº«æ•°æ®
 
 	void SetTo(const Scalar &scalar);
 
-	// »ñÈ¡Ö¸¶¨Î»ÖÃµÄÔªËØ
+	// è·å–æŒ‡å®šä½ç½®çš„å…ƒç´ 
 	template<typename _Tp>
 	inline _Tp& At(int y, int x)
 	{
@@ -56,18 +56,18 @@ public:
 public:
 	int rows;
 	int cols;
-	int numberOfChannels;//Í¨µÀÊı
-	int step;// ²½³¤(Ã¿ĞĞ×Ö½ÚÊı)
+	int numberOfChannels;//é€šé“æ•°
+	int step;// æ­¥é•¿(æ¯è¡Œå­—èŠ‚æ•°)
 	
 	uchar *data;	
 
-	//ÒıÓÃ¼ÆÊı
+	//å¼•ç”¨è®¡æ•°
 	int *refCount;
 
 };// Mat
 
 
-//////////////////////////////MatµÄÊµÏÖ////////////////////////////////////////////
+//////////////////////////////Matçš„å®ç°////////////////////////////////////////////
 
 template <typename T>
 inline Mat<T>::Mat()
@@ -103,7 +103,7 @@ inline Mat<T>::Mat(int _cols, int _rows, int _numberOfChannels, Scalar scalar)
 }
 
 //BYTE->Image,IplImage->Image
-//Ä¬ÈÏ²»¿½±´Êı¾İ,Íâ²¿Êı¾İ_dataĞèÒªÍâ²¿ÊÍ·Å
+//é»˜è®¤ä¸æ‹·è´æ•°æ®,å¤–éƒ¨æ•°æ®_dataéœ€è¦å¤–éƒ¨é‡Šæ”¾
 template <typename T>
 inline Mat<T>::Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData)
 {
@@ -125,7 +125,7 @@ inline Mat<T>::Mat(int _rows, int _cols, int _numberOfChannels, void *_data, boo
 		refCount = (int*)(data + step*rows);
 		*refCount = 1;
 
-		memcpy(data, _data, step*rows);//¿½±´
+		memcpy(data, _data, step*rows);//æ‹·è´
 	}
 
 
@@ -133,15 +133,15 @@ inline Mat<T>::Mat(int _rows, int _cols, int _numberOfChannels, void *_data, boo
 template <typename T>
 Mat<T>::~Mat()
 {
-	Release();//ÊÍ·Å
+	Release();//é‡Šæ”¾
 }
 
-// ÒıÓÃ¼ÆÊı¼õ1£¬Èç¹ûÒıÓÃ¼ÆÊıÎª0ÁË£¬µ÷ÓÃDeallocate()
+// å¼•ç”¨è®¡æ•°å‡1ï¼Œå¦‚æœå¼•ç”¨è®¡æ•°ä¸º0äº†ï¼Œè°ƒç”¨Deallocate()
 template <typename T>
 inline void Mat<T>::Release()
 {
 
-	//ÒıÓÃ¼ÆÊı¼õ1,Èç¹ûÒıÓÃ¼ÆÊıÎª0£¬ËµÃ÷Ã»ÓĞÒıÓÃ£¬ÊÍ·ÅÊı¾İ
+	//å¼•ç”¨è®¡æ•°å‡1,å¦‚æœå¼•ç”¨è®¡æ•°ä¸º0ï¼Œè¯´æ˜æ²¡æœ‰å¼•ç”¨ï¼Œé‡Šæ”¾æ•°æ®
 	if (refCount && (*refCount)-- == 1)
 	{
 		Deallocate();
@@ -150,7 +150,7 @@ inline void Mat<T>::Release()
 	InitEmpty();
 
 }
-//ÊÍ·ÅÊı¾İ
+//é‡Šæ”¾æ•°æ®
 template <typename T>
 inline void Mat<T>::Deallocate()
 {
@@ -169,7 +169,7 @@ inline void Mat<T>::Create(int _rows, int _cols, int _numberOfChannels)
 	}
 	else
 	{
-		//Èç¹û²»Ò»ÖÂ£¬ÒıÓÃ¼ÆÊı¼õ1,´ËÊ±ÒıÓÃ¼ÆÊıÎª0£¬ÊÍ·ÅÊı¾İºÍÒıÓÃ¼ÆÊı
+		//å¦‚æœä¸ä¸€è‡´ï¼Œå¼•ç”¨è®¡æ•°å‡1,æ­¤æ—¶å¼•ç”¨è®¡æ•°ä¸º0ï¼Œé‡Šæ”¾æ•°æ®å’Œå¼•ç”¨è®¡æ•°
 		Release();
 
 		rows = _rows;
@@ -177,7 +177,7 @@ inline void Mat<T>::Create(int _rows, int _cols, int _numberOfChannels)
 		numberOfChannels = _numberOfChannels;
 		step = cols*numberOfChannels*sizeof(T);
 
-		// ÄÚ´æµØÖ·16×Ö½Ú¶ÔÆë(ÓÃÓÚÖ¸Áî¼¯ÓÅ»¯)
+		// å†…å­˜åœ°å€16å­—èŠ‚å¯¹é½(ç”¨äºæŒ‡ä»¤é›†ä¼˜åŒ–)
 		data = (uchar *)AlignedMalloc((step*rows + (int)sizeof(int)), 16);
 
 		refCount = (int*)(data + step*rows);
@@ -195,14 +195,14 @@ inline void Mat<T>::Create(Size _size, int _numberOfChannels)
 	Create(_rows, _cols, _numberOfChannels);
 }
 
-//ÖØÔØ²Ù×÷·û
-// ×¢Òâ·µ»ØÖµÎªImage&(Èç¹û·µ»Øvoid£¬A=(B=C)£¬ÄÇÃ´A¾ÍÃ»ÓĞÖµÁË)
+//é‡è½½æ“ä½œç¬¦
+// æ³¨æ„è¿”å›å€¼ä¸ºImage&(å¦‚æœè¿”å›voidï¼ŒA=(B=C)ï¼Œé‚£ä¹ˆAå°±æ²¡æœ‰å€¼äº†)
 template <typename T>
 inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 {
 	if (this != &dstMat)
 	{
-		// µ÷ÓÃthisµÄrelease
+		// è°ƒç”¨thisçš„release
 		Release();
 
 		rows = dstMat.rows;
@@ -212,7 +212,7 @@ inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 
 		data = dstMat.data;
 
-		//ÒıÓÃ¼ÆÊı
+		//å¼•ç”¨è®¡æ•°
 		refCount = dstMat.refCount;
 		(*refCount)++;
 	}

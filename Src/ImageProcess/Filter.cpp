@@ -11,7 +11,7 @@ namespace QQ
 {
 static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int &medianValue, int &pixelCountLowerMedian)
 {
-	//»ñÈ¡Ö±·½Í¼
+	//è·å–ç›´æ–¹å›¾
 	Mat<int> histogramMat;
 	CalculateHistogram(image, histogramMat);
 
@@ -22,7 +22,7 @@ static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int 
 	{
 		//
 		pixelCountLowerMedian += histogram[i];
-		if (2 * pixelCountLowerMedian>pixelCount)//ÉÙÓÃ³ı·¨(sum>pixelCount/2)
+		if (2 * pixelCountLowerMedian>pixelCount)//å°‘ç”¨é™¤æ³•(sum>pixelCount/2)
 		{
 			medianValue = i;
 			break;
@@ -32,84 +32,84 @@ static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int 
 }
 
 //2015-1-1 20:23:53,by QQ
-//Ê¹ÓÃcopyMakeBorderÀ©³äÍ¼Ïñ±ß½ç£¬´¦ÀíÂË²¨±ß½ç
+//ä½¿ç”¨copyMakeBorderæ‰©å……å›¾åƒè¾¹ç•Œï¼Œå¤„ç†æ»¤æ³¢è¾¹ç•Œ
 void Blur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, Size kernelSize)
 {
-	//ĞÂÍ¼ÏñµÄ´óĞ¡
+	//æ–°å›¾åƒçš„å¤§å°
 	int width_Dst = srcImage.cols;
 	int height_Dst = srcImage.rows;
-	dstImage.Create(Size(width_Dst, height_Dst), 1);//Èç¹ûÖØĞÂ·ÖÅä£¬Ö®Ç°µÄ¿Õ¼ä»áÈÓµô
+	dstImage.Create(Size(width_Dst, height_Dst), 1);//å¦‚æœé‡æ–°åˆ†é…ï¼Œä¹‹å‰çš„ç©ºé—´ä¼šæ‰”æ‰
 
-	//À©³äµÄ´óĞ¡
+	//æ‰©å……çš„å¤§å°
 	int width_Extend = kernelSize.width >> 1;
 	int height_Extend = kernelSize.height >> 1;
 
-	//´´½¨ĞÂÍ¼Ïñ
+	//åˆ›å»ºæ–°å›¾åƒ
 	Mat<uchar> image_New;
 	CopyMakeBorder(srcImage, image_New, height_Extend, height_Extend, width_Extend, width_Extend);
 
-	//ĞÂÍ¼Ïñ²ÎÊı
+	//æ–°å›¾åƒå‚æ•°
 	int width_New = image_New.cols;
 	int height_New = image_New.rows;
 	int widthStep_New = width_New;
 
-	//»¬¶¯´°¿Ú
+	//æ»‘åŠ¨çª—å£
 	int width_Aperture = kernelSize.width;
 	int height_Aperture = kernelSize.height;
 	int pixelCount = width_Aperture*height_Aperture;
 
-	//¼ÆËãĞèÒªÂË²¨ÏñËØµÄÆğµã×ø±ê
+	//è®¡ç®—éœ€è¦æ»¤æ³¢åƒç´ çš„èµ·ç‚¹åæ ‡
 	int startX = width_Aperture >> 1;
 	int startY = height_Aperture >> 1;
 
-	//Ã¿ÁĞµÄ»Ò¶ÈÖµºÍ
+	//æ¯åˆ—çš„ç°åº¦å€¼å’Œ
 	int *sum_PerCol = new int[width_New];
 
-	//¶ÔĞÂÍ¼Ïñ×öÂË²¨´¦Àí
+	//å¯¹æ–°å›¾åƒåšæ»¤æ³¢å¤„ç†
 	uchar *row_New = image_New.data + startY*widthStep_New + startX;
-	uchar *row_Dst = dstImage.data;//µÚÒ»ĞĞ
+	uchar *row_Dst = dstImage.data;//ç¬¬ä¸€è¡Œ
 	uchar *row_Aperture_New = image_New.data;
 	for (int y = startY; y <= height_New - startY - 1; ++y)
 	{
-		//ÁĞ
+		//åˆ—
 		uchar *col_Dst = row_Dst;
 		uchar *col_Aperture_New = row_Aperture_New;
 
-		//¼ÆËãÃ¿ÁĞheight_Aperture¸öÏñËØµÄ»Ò¶ÈÖµºÍ
-		//µÚÒ»ĞĞ£¬¼ÆËãËùÓĞÁĞµÄºÍ
+		//è®¡ç®—æ¯åˆ—height_Apertureä¸ªåƒç´ çš„ç°åº¦å€¼å’Œ
+		//ç¬¬ä¸€è¡Œï¼Œè®¡ç®—æ‰€æœ‰åˆ—çš„å’Œ
 		if (y == startY)
 		{
 
 			for (int k = 0; k <= width_New - 1; ++k)
 			{
 				sum_PerCol[k] = 0;
-				//Ã¿ÁĞµÚÒ»¸öÖ¸Õë
+				//æ¯åˆ—ç¬¬ä¸€ä¸ªæŒ‡é’ˆ
 				uchar *col_PerLine = col_Aperture_New + k;
 				for (int t = 0; t <= height_Aperture - 1; ++t)
 				{
 					sum_PerCol[k] += col_PerLine[0];
-					col_PerLine += widthStep_New;//ÏÂÒ»ĞĞ
+					col_PerLine += widthStep_New;//ä¸‹ä¸€è¡Œ
 				}
 
 			}
 		}
-		else//·ÇµÚÒ»ĞĞ
+		else//éç¬¬ä¸€è¡Œ
 		{
 			for (int k = 0; k <= width_New - 1; ++k)
 			{
-				//Ã¿ÁĞµÚÒ»¸öÖ¸Õë
+				//æ¯åˆ—ç¬¬ä¸€ä¸ªæŒ‡é’ˆ
 				uchar *col_ = col_Aperture_New + k;
-				sum_PerCol[k] -= col_[0 - widthStep_New];//¼õÉÏÃæ
-				sum_PerCol[k] += col_[0 + (height_Aperture - 1)*widthStep_New];//¼ÓÏÂÃæ
+				sum_PerCol[k] -= col_[0 - widthStep_New];//å‡ä¸Šé¢
+				sum_PerCol[k] += col_[0 + (height_Aperture - 1)*widthStep_New];//åŠ ä¸‹é¢
 			}
 
 		}
 
-		//¼ÆËãwidth_ApertureĞĞµÄÁĞ×ÜºÍ
+		//è®¡ç®—width_Apertureè¡Œçš„åˆ—æ€»å’Œ
 		int sum_Aperture = 0;
 		for (int x = startX; x <= width_New - startX - 1; ++x)
 		{
-			//Ã¿ĞĞµÚÒ»¸öÔªËØ£¬Çówidth_Aperture¸öÁĞºÍ
+			//æ¯è¡Œç¬¬ä¸€ä¸ªå…ƒç´ ï¼Œæ±‚width_Apertureä¸ªåˆ—å’Œ
 			if (x == startX)
 			{
 				for (int k = 0; k <= width_Aperture - 1; ++k)
@@ -117,25 +117,25 @@ void Blur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, Size kernelSize)
 					sum_Aperture += sum_PerCol[k];
 				}
 			}
-			else//·ÇµÚÒ»¸öÔªËØ
+			else//éç¬¬ä¸€ä¸ªå…ƒç´ 
 			{
-				//¼õÈ¥×ó±ß
+				//å‡å»å·¦è¾¹
 				sum_Aperture -= sum_PerCol[x - startX - 1];
 
-				//¼ÓÉÏÓÒ±ß
+				//åŠ ä¸Šå³è¾¹
 				sum_Aperture += sum_PerCol[x + startX];
 			}
 
-			//Çó¾ùÖµ
+			//æ±‚å‡å€¼
 			uchar meanValue = sum_Aperture / pixelCount;
 			col_Dst[0] = meanValue;
 
-			//»¬¶¯Ò»¸öÏñËØ
+			//æ»‘åŠ¨ä¸€ä¸ªåƒç´ 
 			col_Dst++;
-			//col_New++;//ÕâÀï²»ĞèÒª¶ÔÔ´Í¼ÏñÖ¸Õë½øĞĞ»¬¶¯
+			//col_New++;//è¿™é‡Œä¸éœ€è¦å¯¹æºå›¾åƒæŒ‡é’ˆè¿›è¡Œæ»‘åŠ¨
 		}
 
-		//ÏÂÒ»ĞĞ
+		//ä¸‹ä¸€è¡Œ
 		row_Dst += width_Dst;
 		row_Aperture_New += width_New;
 	}
@@ -148,88 +148,88 @@ void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aper
 	
 	int width_Dst = srcImage.cols;
 	int height_Dst = srcImage.rows;
-	dstImage.Create(Size(width_Dst, height_Dst), 1);//Èç¹ûÖØĞÂ·ÖÅä£¬Ö®Ç°µÄ¿Õ¼ä»áÈÓµô
-	//dstImage.setTo(Scalar(0));//ÖÃÎª0
+	dstImage.Create(Size(width_Dst, height_Dst), 1);//å¦‚æœé‡æ–°åˆ†é…ï¼Œä¹‹å‰çš„ç©ºé—´ä¼šæ‰”æ‰
+	//dstImage.setTo(Scalar(0));//ç½®ä¸º0
 
-	//»¬¶¯´°¿Ú
-	int pixelCount = width_Aperture*width_Aperture;//´°¿ÚÄÚÏñËØ×Ü¸öÊı
-	Mat<uchar> image_Aperture(width_Aperture, width_Aperture, 1);//»¬¶¯´°¿ÚÍ¼Ïñ
-	int thresholdValue = pixelCount / 2 + 1;//step1.ÉèÖÃãĞÖµ(²½Öè²Î¿¼£ºÍ¼ÏñµÄ¸ßĞ§±à³ÌÒªµãÖ®ËÄ)
+	//æ»‘åŠ¨çª—å£
+	int pixelCount = width_Aperture*width_Aperture;//çª—å£å†…åƒç´ æ€»ä¸ªæ•°
+	Mat<uchar> image_Aperture(width_Aperture, width_Aperture, 1);//æ»‘åŠ¨çª—å£å›¾åƒ
+	int thresholdValue = pixelCount / 2 + 1;//step1.è®¾ç½®é˜ˆå€¼(æ­¥éª¤å‚è€ƒï¼šå›¾åƒçš„é«˜æ•ˆç¼–ç¨‹è¦ç‚¹ä¹‹å››)
 
-	//¼ÆËãÆğµã×ø±ê
+	//è®¡ç®—èµ·ç‚¹åæ ‡
 	int startX = width_Aperture / 2;
 	int startY = width_Aperture / 2;
 
 	int height_Extend = startY;
 	int width_Extend = startX;
 	Mat<uchar> image_New;
-	CopyMakeBorder(srcImage, image_New, height_Extend, height_Extend, width_Extend, width_Extend);//Ä¬ÈÏ²ÉÓÃBORDER_REFLECT
+	CopyMakeBorder(srcImage, image_New, height_Extend, height_Extend, width_Extend, width_Extend);//é»˜è®¤é‡‡ç”¨BORDER_REFLECT
 	int height_New = image_New.rows;
 	int width_New = image_New.cols;
-	//µÚÒ»ĞĞ
-	//ÕâÀïĞèÒªÉèÖÃ3¸öÖ¸Õë,Ò»Æğ»¬¶¯
-	//1.Ô´Í¼ÏñÖĞ±»´¦ÀíµÄÏñËØ 
-	//2.Ä¿±êÍ¼Ïñ±»´¦ÀíµÄÏñËØ 
-	//3.Ô´Í¼Ïñ»¬¶¯´°¿Ú
-	uchar *row_New = image_New.data + startY*width_New + startX;//ĞÂÍ¼Ïñ
-	uchar *row_Dst = dstImage.data;//Ä¿±êÍ¼Ïñ
-	uchar *row_Aperture_New = image_New.data;//Ô´Í¼ÏñÖĞµÄ»¬¶¯´°¿Ú
+	//ç¬¬ä¸€è¡Œ
+	//è¿™é‡Œéœ€è¦è®¾ç½®3ä¸ªæŒ‡é’ˆ,ä¸€èµ·æ»‘åŠ¨
+	//1.æºå›¾åƒä¸­è¢«å¤„ç†çš„åƒç´  
+	//2.ç›®æ ‡å›¾åƒè¢«å¤„ç†çš„åƒç´  
+	//3.æºå›¾åƒæ»‘åŠ¨çª—å£
+	uchar *row_New = image_New.data + startY*width_New + startX;//æ–°å›¾åƒ
+	uchar *row_Dst = dstImage.data;//ç›®æ ‡å›¾åƒ
+	uchar *row_Aperture_New = image_New.data;//æºå›¾åƒä¸­çš„æ»‘åŠ¨çª—å£
 
 	for (int y = startY; y <= height_New - startY - 1; ++y)
 	{
-		//ÁĞ
+		//åˆ—
 		uchar *col_New = row_New;
 		uchar *col_Dst = row_Dst;
-		uchar *col_Aperture_New = row_Aperture_New;//²Ù×÷Õû¸ö»¬¶¯´°¿Ú
+		uchar *col_Aperture_New = row_Aperture_New;//æ“ä½œæ•´ä¸ªæ»‘åŠ¨çª—å£
 
-		///////////////////////////////¶Ô»¬¶¯´°¿Ú²Ù×÷///////////////////////////////////////////
-		//¼ÆËãÃ¿ĞĞµÚÒ»¸ö»¬¶¯´°¿ÚÖ±·½Í¼
-		//ÌáÈ¡»¬¶¯´°¿ÚÍ¼Ïñ
-		uchar *row_Aperture = image_Aperture.data;//»¬¶¯´°¿ÚÍ¼Ïñ
+		///////////////////////////////å¯¹æ»‘åŠ¨çª—å£æ“ä½œ///////////////////////////////////////////
+		//è®¡ç®—æ¯è¡Œç¬¬ä¸€ä¸ªæ»‘åŠ¨çª—å£ç›´æ–¹å›¾
+		//æå–æ»‘åŠ¨çª—å£å›¾åƒ
+		uchar *row_Aperture = image_Aperture.data;//æ»‘åŠ¨çª—å£å›¾åƒ
 		uchar *row_Aperture_New_2 = col_Aperture_New;
 		for (int k = 0; k <= width_Aperture - 1; ++k)
 		{
-			//ÁĞ
+			//åˆ—
 			uchar *col_ApertureImage = row_Aperture;
 			uchar *col_Aperture_New_2 = row_Aperture_New_2;
 
 			for (int w = 0; w <= width_Aperture - 1; ++w)
 			{
-				//´¦ÀíÃ¿¸öÏñËØ
+				//å¤„ç†æ¯ä¸ªåƒç´ 
 				col_ApertureImage[0] = col_Aperture_New_2[0];
 
-				//ÏÂÒ»¸öÏñËØ
+				//ä¸‹ä¸€ä¸ªåƒç´ 
 				col_ApertureImage++;
 				col_Aperture_New_2++;
 			}
 
-			//ÏÂÒ»ĞĞ
+			//ä¸‹ä¸€è¡Œ
 			row_Aperture += width_Aperture;
 			row_Aperture_New_2 += width_New;
 		}
 
-		//step 2.È·¶¨ÖĞÖµ£¬²¢¼ÇÂ¼ÁÁ¶È<=ÖĞÖµµÄÏñËØµã¸öÊı
-		//ÇóÖ±·½Í¼
+		//step 2.ç¡®å®šä¸­å€¼ï¼Œå¹¶è®°å½•äº®åº¦<=ä¸­å€¼çš„åƒç´ ç‚¹ä¸ªæ•°
+		//æ±‚ç›´æ–¹å›¾
 		Mat<int> histogramMat;
 		CalculateHistogram(image_Aperture, histogramMat);
 
-		//ÇóÁÁ¶ÈÖĞÖµºÍ<=ÖĞÖµµÄÏñËØµã¸öÊı
+		//æ±‚äº®åº¦ä¸­å€¼å’Œ<=ä¸­å€¼çš„åƒç´ ç‚¹ä¸ªæ•°
 		int medianValue, pixelCountLowerMedian;
 		GetMedianValueAndPixelCountLowerMedian(image_Aperture, medianValue, pixelCountLowerMedian);
-		//////////////////////////////»¬¶¯´°¿Ú²Ù×÷½áÊø////////////////////////////////////////////
+		//////////////////////////////æ»‘åŠ¨çª—å£æ“ä½œç»“æŸ////////////////////////////////////////////
 
-		//ÂË²¨
+		//æ»¤æ³¢
 		col_Dst[0] = (uchar)medianValue;
 		int *histogram = (int *)histogramMat.data;
 
-		//»¬¶¯Ò»¸öÏñËØ(Èı¸öÖ¸ÕëÔÚÒ»ÆğÒÆ¶¯)
+		//æ»‘åŠ¨ä¸€ä¸ªåƒç´ (ä¸‰ä¸ªæŒ‡é’ˆåœ¨ä¸€èµ·ç§»åŠ¨)
 		col_Dst++;
 		col_New++;
 		col_Aperture_New++;
-		for (int x = startX + 1; x <= width_New - startX - 1; ++x)//´ÓÃ¿ĞĞµÚ¶ş¸öÂË²¨ÏñËØ¿ªÊ¼
+		for (int x = startX + 1; x <= width_New - startX - 1; ++x)//ä»æ¯è¡Œç¬¬äºŒä¸ªæ»¤æ³¢åƒç´ å¼€å§‹
 		{
-			//////////////////////////////////Î¬³Ö»¬¶¯´°¿ÚÖ±·½Í¼////////////////////////////////////////
-			//step 3.È¥µô×ó²à
+			//////////////////////////////////ç»´æŒæ»‘åŠ¨çª—å£ç›´æ–¹å›¾////////////////////////////////////////
+			//step 3.å»æ‰å·¦ä¾§
 			uchar *col_Left = col_Aperture_New - 1;
 			for (int k = 0; k <= width_Aperture - 1; ++k)
 			{
@@ -242,7 +242,7 @@ void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aper
 				col_Left += width_New;
 			}
 
-			//step 4.Ôö¼ÓÓÒ²à
+			//step 4.å¢åŠ å³ä¾§
 			uchar *col_Right = col_Aperture_New + width_Aperture - 1;
 			for (int k = 0; k <= width_Aperture - 1; ++k)
 			{
@@ -255,7 +255,7 @@ void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aper
 				col_Right += width_New;
 			}
 
-			//ËÑË÷ĞÂµÄÖĞÖµ
+			//æœç´¢æ–°çš„ä¸­å€¼
 			if (pixelCountLowerMedian>thresholdValue)//step 6.
 			{
 				while (1)
@@ -280,16 +280,16 @@ void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aper
 
 			}
 
-			//ÂË²¨
+			//æ»¤æ³¢
 			col_Dst[0] = (uchar)medianValue;
 
-			//»¬¶¯Ò»¸öÏñËØ
+			//æ»‘åŠ¨ä¸€ä¸ªåƒç´ 
 			col_New++;
 			col_Dst++;
 			col_Aperture_New++;
 		}//end of x
 
-		//ÏÂÒ»ĞĞ
+		//ä¸‹ä¸€è¡Œ
 		row_New += width_New;
 		row_Dst += width_Dst;
 		row_Aperture_New += width_New;
@@ -335,7 +335,7 @@ void GaussianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double sigma
 		dataOfKernel[i] /= sum;
 	}
 
-	// ×ö¾í»ıÔËËã,¾ÍÊÇLibrary_OpenCVÖĞµÄConvolution
+	// åšå·ç§¯è¿ç®—,å°±æ˜¯Library_OpenCVä¸­çš„Convolution
 	// Convolution(srcImage, gaussianKernel,dstImage);
 
 }// GaussianBlur
@@ -381,21 +381,21 @@ Mat<float> GetGaborKernel(Size ksize, double sigma, double theta, double lambd, 
 	return kernel;
 
 }
-// ¾í»ıÔËËã,KernelÕı·½ĞÎ¾í»ıºËÇÒ±ß³¤ÎªÆæÊı
+// å·ç§¯è¿ç®—,Kernelæ­£æ–¹å½¢å·ç§¯æ ¸ä¸”è¾¹é•¿ä¸ºå¥‡æ•°
 void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar> &dstImage)
 {
-	// Ä¿±êÍ¼Ïñ´óĞ¡
-	int stride = 1;// Ä¬ÈÏ»¬¶¯´°¿Ú²½³¤Îª1
+	// ç›®æ ‡å›¾åƒå¤§å°
+	int stride = 1;// é»˜è®¤æ»‘åŠ¨çª—å£æ­¥é•¿ä¸º1
 	int kernelSize = kernel.rows;
 	int widthOfDst = (srcImage.cols + kernelSize - 1 - kernelSize) / stride + 1;
 	int heightOfDst = (srcImage.rows + kernelSize - 1 - kernelSize) / stride + 1;
 	dstImage.Create(heightOfDst, widthOfDst, 1);
 
-	// À©³äÔ­Í¼
+	// æ‰©å……åŸå›¾
 	Mat<uchar> extendedImage;
 	CopyMakeBorder(srcImage, extendedImage, kernelSize / 2, kernelSize / 2, kernelSize / 2, kernelSize / 2);
 
-	// ¹¹½¨»¬¶¯´°¿ÚÏñËØ²éÕÒ±í,¼ÆËã»¬¶¯´°¿ÚÖĞÃ¿¸öÏñËØÔÚÍ¼ÏñÖĞÏà¶ÔÓÚ»¬¶¯´°¿ÚÖ¸ÕëÆ«ÒÆ
+	// æ„å»ºæ»‘åŠ¨çª—å£åƒç´ æŸ¥æ‰¾è¡¨,è®¡ç®—æ»‘åŠ¨çª—å£ä¸­æ¯ä¸ªåƒç´ åœ¨å›¾åƒä¸­ç›¸å¯¹äºæ»‘åŠ¨çª—å£æŒ‡é’ˆåç§»
 	std::vector<int> pixelOffset;
 	pixelOffset.resize(kernelSize*kernelSize);
 	memset(&pixelOffset[0], 0, pixelOffset.size()*sizeof(int));
@@ -405,27 +405,27 @@ void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar
 		int yOffset = y*extendedImage.cols;
 		for (int x = 0; x < kernelSize; ++x)
 		{
-			// ¼ÆËãÃ¿¸öÏñËØµÄÆ«ÒÆ
+			// è®¡ç®—æ¯ä¸ªåƒç´ çš„åç§»
 			pixelOffset[index++] = yOffset + x;
 		}
 	}
 
-	// ¼ÆËã¾í»ı
+	// è®¡ç®—å·ç§¯
 	uchar *rowOfDst = dstImage.data;
 	for (int y = 0; y <= heightOfDst - 1; ++y, rowOfDst += widthOfDst)
 	{
 		uchar *colOfDst = rowOfDst;
 
-		// »¬¶¯´°¿Ú(µÚÒ»¸öÔªËØ)ÔÚy·½ÏòÉÏµÄÆ«ÒÆ
+		// æ»‘åŠ¨çª—å£(ç¬¬ä¸€ä¸ªå…ƒç´ )åœ¨yæ–¹å‘ä¸Šçš„åç§»
 		int offsetOfY = y*stride;
 
 		for (int x = 0; x <= widthOfDst - 1; ++x, ++colOfDst)
 		{
-			// ¼ÆËã»¬¶¯´°¿ÚÔÚÍ¼ÏñÖĞµÄÆ«ÒÆ,²¢×ª»¯ÎªÖ¸Ïò¸Ã»¬¶¯´°¿ÚµÄÖ¸Õë
+			// è®¡ç®—æ»‘åŠ¨çª—å£åœ¨å›¾åƒä¸­çš„åç§»,å¹¶è½¬åŒ–ä¸ºæŒ‡å‘è¯¥æ»‘åŠ¨çª—å£çš„æŒ‡é’ˆ
 			int offsetOfX = x*stride;
 			uchar *dataOfROI = extendedImage.data + offsetOfY*extendedImage.cols + offsetOfX;
 
-			// ¾í»ıºË
+			// å·ç§¯æ ¸
 			float *dataOfKernel = (float *)kernel.data;
 			float sum = 0;
 			for (int i = 0; i < pixelOffset.size(); ++i)
@@ -433,7 +433,7 @@ void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar
 				sum += (dataOfROI[pixelOffset[i]] * dataOfKernel[i]);
 			}
 
-			// ¾í»ı½á¹û¸³ÖµÎª½á¹ûÍ¼Ïñ,×¢ÒâÒç³öµÄ´¦Àí£¡
+			// å·ç§¯ç»“æœèµ‹å€¼ä¸ºç»“æœå›¾åƒ,æ³¨æ„æº¢å‡ºçš„å¤„ç†ï¼
 			colOfDst[0] = SATURATE((int)sum);
 		}
 	}
@@ -456,3 +456,5 @@ void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar
 
 
 }//end of namespace QQ
+
+

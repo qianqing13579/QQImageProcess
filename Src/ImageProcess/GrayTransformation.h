@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// »Ò¶È±ä»»¼°ÑÕÉ«¿Õ¼ä×ª»»
+// ç°åº¦å˜æ¢åŠé¢œè‰²ç©ºé—´è½¬æ¢
 // 2014-11-16,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -16,13 +16,13 @@
 namespace QQ
 {
 
-// »Ò¶È»¯
+// ç°åº¦åŒ–
 DLL_EXPORTS void RGB2Gray(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
-// Çó»Ò¶ÈÍ¼µÄÆ½¾ù»Ò¶È
+// æ±‚ç°åº¦å›¾çš„å¹³å‡ç°åº¦
 DLL_EXPORTS int ComputeMeanGray(const Mat<uchar> &srcImage);
 
-// Ö±·½Í¼¾ùºâ»¯(Í¨¹ı»Ò¶È±ä»»ÊµÏÖ)
+// ç›´æ–¹å›¾å‡è¡¡åŒ–(é€šè¿‡ç°åº¦å˜æ¢å®ç°)
 DLL_EXPORTS void EqualizeHistogram(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
 

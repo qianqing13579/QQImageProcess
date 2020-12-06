@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// Ö±·½Í¼Ïà¹Ø
+// ç›´æ–¹å›¾ç›¸å…³
 // 2014-12-6,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -16,7 +16,7 @@
 namespace QQ
 {
 
-// ¼ÆËãÖ±·½Í¼
+// è®¡ç®—ç›´æ–¹å›¾
 DLL_EXPORTS void CalculateHistogram(const Mat<uchar> &srcImage,Mat<int> &histogram);
 
 

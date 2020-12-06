@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// ÄÚ´æ·ÖÅäÓëÊÍ·Å
+// å†…å­˜åˆ†é…ä¸é‡Šæ”¾
 // 2016-5-30,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -16,8 +16,8 @@
 namespace QQ
 {
 
-// ÊµÏÖÈÎÒâ×Ö½Ú¶ÔÆëµÄÄÚ´æ·ÖÅäºÍÊÍ·Å
-DLL_EXPORTS void *AlignedMalloc(int size, int aligned); // aligned³£ÓÃ16»òÕß32
+// å®ç°ä»»æ„å­—èŠ‚å¯¹é½çš„å†…å­˜åˆ†é…å’Œé‡Šæ”¾
+DLL_EXPORTS void *AlignedMalloc(int size, int aligned); // alignedå¸¸ç”¨16æˆ–è€…32
 DLL_EXPORTS void AlignedFree(void *data);
 
 

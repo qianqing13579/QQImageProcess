@@ -7,7 +7,7 @@ namespace QQ
 {
 	void CopyMakeBorder(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int top, int bottom, int left, int right)
 	{
-		// ²ÎÊı¼ì²é£¬ÄÚ´æ·ÖÅä
+		// å‚æ•°æ£€æŸ¥ï¼Œå†…å­˜åˆ†é…
 		int newCols = srcImage.cols + left + right;
 		int newRows = srcImage.rows + top + bottom;
 		dstImage.Create(newRows, newCols, srcImage.numberOfChannels);
@@ -22,61 +22,61 @@ namespace QQ
 	} // CopyMakeBorder
 
 	//2015-3-4 16:53:57,by QQ
-	//¸Ä½øµÄ¼ÆËãÏñËØ»Ò¶ÈÖµ»ı·ÖÍ¼Ïñ
-	//·½·¨£ºIntegral(y,x) = Integral(y-1,x) + rowSum(y);
+	//æ”¹è¿›çš„è®¡ç®—åƒç´ ç°åº¦å€¼ç§¯åˆ†å›¾åƒ
+	//æ–¹æ³•ï¼šIntegral(y,x) = Integral(y-1,x) + rowSum(y);
 	void ComputeIntegralImage(const Mat<uchar> &srcImage, Mat<int> &dstImage)
 	{
-		//ĞÂÍ¼ÏñµÄ´óĞ¡
+		//æ–°å›¾åƒçš„å¤§å°
 		int width_Dst = srcImage.cols;
 		int height_Dst = srcImage.rows;
-		dstImage.Create(Size(width_Dst, height_Dst), 1);//Èç¹ûÖØĞÂ·ÖÅä£¬Ö®Ç°µÄ¿Õ¼ä»áÈÓµô
+		dstImage.Create(Size(width_Dst, height_Dst), 1);//å¦‚æœé‡æ–°åˆ†é…ï¼Œä¹‹å‰çš„ç©ºé—´ä¼šæ‰”æ‰
 		dstImage.SetTo(Scalar(0));
 
 		int width_Src = srcImage.cols;
 		int height_Src = srcImage.rows;
 
-		//Ã¿¸öÏñËØµÄÍ¨µÀÊı
+		//æ¯ä¸ªåƒç´ çš„é€šé“æ•°
 		int channelCount_Src = srcImage.numberOfChannels;
-		int channelCount_Integral = dstImage.numberOfChannels;//Ã¿¸öÏñËØµÄÍ¨µÀÊı
+		int channelCount_Integral = dstImage.numberOfChannels;//æ¯ä¸ªåƒç´ çš„é€šé“æ•°
 
-		//ĞĞµÄÍ¨µÀÊı
+		//è¡Œçš„é€šé“æ•°
 		int widthStep_Src = channelCount_Src*width_Src;
 		int widthStep_Integral = channelCount_Integral*width_Src;
 
-		//µÚÒ»ĞĞ
+		//ç¬¬ä¸€è¡Œ
 		uchar *row_Src = srcImage.data;
-		int *row_Integral = (int *)dstImage.data;//×¢ÒâÖ¸ÕëµÄ×ª»»
+		int *row_Integral = (int *)dstImage.data;//æ³¨æ„æŒ‡é’ˆçš„è½¬æ¢
 		for (int y = 0; y <= height_Src - 1; ++y)
 		{
-			int sum = 0;//µ±Ç°ĞĞµÄÀÛ¼ÓºÍ
-			//ÁĞ
+			int sum = 0;//å½“å‰è¡Œçš„ç´¯åŠ å’Œ
+			//åˆ—
 			uchar *col_Src = row_Src;
 			int *col_Integral = row_Integral;
 			for (int x = 0; x <= width_Src - 1; ++x)
 			{
-				//¸ÃĞĞµÄÀÛ¼Ó
+				//è¯¥è¡Œçš„ç´¯åŠ 
 				sum += col_Src[0];
 
-				//¼ÆËãµÚ0ĞĞ,µÚÒ»ĞĞµ¥¶À´¦Àí
+				//è®¡ç®—ç¬¬0è¡Œ,ç¬¬ä¸€è¡Œå•ç‹¬å¤„ç†
 				if (y == 0)
 				{
 					col_Integral[0] = sum;
 				}
 				else
 				{
-					//·ÇµÚ0ĞĞ
-					//µ±Ç°ĞĞÀÛ¼ÓºÍ+Í¬ÁĞµÄÉÏÒ»¸öÔªËØµÄÖµ
-					col_Integral[0] = sum + col_Integral[0 - widthStep_Integral];//ÏÂ±ê
-					//col_Integral[0]=sum+*(col_Integral-image_Integral.cols);//Ö¸ÕëÒÆ¶¯
+					//éç¬¬0è¡Œ
+					//å½“å‰è¡Œç´¯åŠ å’Œ+åŒåˆ—çš„ä¸Šä¸€ä¸ªå…ƒç´ çš„å€¼
+					col_Integral[0] = sum + col_Integral[0 - widthStep_Integral];//ä¸‹æ ‡
+					//col_Integral[0]=sum+*(col_Integral-image_Integral.cols);//æŒ‡é’ˆç§»åŠ¨
 
 				}
 
-				//ÏÂÒ»¸öÏñËØ
+				//ä¸‹ä¸€ä¸ªåƒç´ 
 				col_Src++;
 				col_Integral++;
 
 			}
-			//ÏÂÒ»ĞĞ
+			//ä¸‹ä¸€è¡Œ
 			row_Src += widthStep_Src;
 			row_Integral += widthStep_Integral;
 		}

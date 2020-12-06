@@ -27,7 +27,7 @@ set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Bmp.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Histogram.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcess/Utility.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/Src/Utility/Alloc.cpp
-                ${CMAKE_CURRENT_SOURCE_DIR}/Src/ImageProcessTest.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/Src/Samples.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/Src/main.cpp)
 
 # 添加可执行目标

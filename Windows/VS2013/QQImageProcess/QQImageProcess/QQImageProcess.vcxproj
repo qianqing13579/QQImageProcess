@@ -82,7 +82,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Src\ImageProcessTest.cpp" />
     <ClCompile Include="..\..\..\..\Src\ImageProcess\Bmp.cpp" />
     <ClCompile Include="..\..\..\..\Src\ImageProcess\Edge.cpp" />
     <ClCompile Include="..\..\..\..\Src\ImageProcess\Filter.cpp" />
@@ -91,10 +90,10 @@
     <ClCompile Include="..\..\..\..\Src\ImageProcess\Histogram.cpp" />
     <ClCompile Include="..\..\..\..\Src\ImageProcess\Utility.cpp" />
     <ClCompile Include="..\..\..\..\Src\main.cpp" />
+    <ClCompile Include="..\..\..\..\Src\Samples.cpp" />
     <ClCompile Include="..\..\..\..\Src\Utility\Alloc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Src\ImageProcessTest.h" />
     <ClInclude Include="..\..\..\..\Src\ImageProcess\Bmp.h" />
     <ClInclude Include="..\..\..\..\Src\ImageProcess\Edge.h" />
     <ClInclude Include="..\..\..\..\Src\ImageProcess\Filter.h" />
@@ -102,6 +101,7 @@
     <ClInclude Include="..\..\..\..\Src\ImageProcess\GrayTransformation.h" />
     <ClInclude Include="..\..\..\..\Src\ImageProcess\Histogram.h" />
     <ClInclude Include="..\..\..\..\Src\ImageProcess\Utility.h" />
+    <ClInclude Include="..\..\..\..\Src\Samples.h" />
     <ClInclude Include="..\..\..\..\Src\Utility\Alloc.h" />
     <ClInclude Include="..\..\..\..\Src\Utility\BmpDefinition_Linux.h" />
     <ClInclude Include="..\..\..\..\Src\Utility\BmpDefinition_Windows.h" />

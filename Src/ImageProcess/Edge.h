@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
-// ±ßÔµ¼ì²â
-// 2017-1-12£¬by QQ
+// è¾¹ç¼˜æ£€æµ‹
+// 2017-1-12ï¼Œby QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
 // Contact:
@@ -16,10 +16,10 @@
 namespace QQ
 {
 
-// Sobel Ëã×Ó
+// Sobel ç®—å­
 DLL_EXPORTS void Sobel(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
-// Canny(Canny3),ÍÆ¼öãĞÖµ:low:50 , high:150
+// Canny(Canny3),æ¨èé˜ˆå€¼:low:50 , high:150
 DLL_EXPORTS void Canny(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double lowThreshold, double highThreshold, bool L2 = false);
 
 

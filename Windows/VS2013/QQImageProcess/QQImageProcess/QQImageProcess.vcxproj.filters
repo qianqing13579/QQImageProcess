@@ -39,10 +39,10 @@
     <ClCompile Include="..\..\..\..\Src\Utility\Alloc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Src\ImageProcessTest.cpp">
+    <ClCompile Include="..\..\..\..\Src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Src\main.cpp">
+    <ClCompile Include="..\..\..\..\Src\Samples.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClInclude Include="..\..\..\..\Src\Utility\Mat.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Src\ImageProcessTest.h">
+    <ClInclude Include="..\..\..\..\Src\Samples.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -21,7 +21,6 @@ namespace QQ
 		}
 	} // CopyMakeBorder
 
-	//2015-3-4 16:53:57,by QQ
 	//改进的计算像素灰度值积分图像
 	//方法：Integral(y,x) = Integral(y-1,x) + rowSum(y);
 	void ComputeIntegralImage(const Mat<uchar> &srcImage, Mat<int> &dstImage)

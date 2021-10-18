@@ -19,7 +19,7 @@ namespace QQ
 // 边界扩充，使用0扩充
 DLL_EXPORTS void CopyMakeBorder(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int top, int bottom, int left, int right);
 
-// 计算积分图(CalculateIntegralImage)
+// 计算积分图
 //dstImage:积分图
 DLL_EXPORTS void ComputeIntegralImage(const Mat<uchar> &srcImage, Mat<int> &dstImage);
 

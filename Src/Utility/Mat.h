@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// 矩阵类(Image的升级版)
+// 矩阵类
 // 2016-12-24,by QQ
 //
 // Please contact me if you find any bugs, or have any suggestions.
@@ -26,6 +26,7 @@ class  DLL_EXPORTS Mat
 public:
 	//构造函数
 	Mat();
+	Mat(const Mat<T>& m);// 拷贝构造
 	Mat(int _rows, int _cols, int _numberOfChannels);
 	Mat(int _rows, int _cols, int _numberOfChannels, Scalar scalar); 
 	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// 外部数据_data需要外部释放
@@ -62,7 +63,7 @@ public:
 	uchar *data;	
 
 	//引用计数
-	int *refCount;
+	int *refCount;// 如果为空，表示不需要释放内存(使用了外部数据)
 
 };// Mat
 
@@ -77,11 +78,29 @@ inline Mat<T>::Mat()
 }
 
 template <typename T>
+inline Mat<T>::Mat(const Mat<T> &m)
+{
+	// 引用计数加1
+	refCount = m.refCount;
+	if(refCount!=NULL)
+	{
+		(*refCount)++;
+	}
+
+	rows = m.rows;
+	cols = m.cols;
+	numberOfChannels = m.numberOfChannels;
+	step = m.step;
+	data = m.data; 
+
+}
+
+template <typename T>
 inline void Mat<T>::InitEmpty()
 {
 	rows = cols = numberOfChannels = 0;
 	data = 0;
-	refCount = 0;
+	refCount = NULL;
 
 }
 
@@ -102,7 +121,6 @@ inline Mat<T>::Mat(int _cols, int _rows, int _numberOfChannels, Scalar scalar)
 
 }
 
-//BYTE->Image,IplImage->Image
 //默认不拷贝数据,外部数据_data需要外部释放
 template <typename T>
 inline Mat<T>::Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData)
@@ -116,7 +134,7 @@ inline Mat<T>::Mat(int _rows, int _cols, int _numberOfChannels, void *_data, boo
 	{
 		data=(uchar *)_data;
 
-		refCount = 0;
+		refCount = NULL;
 	}
 	else
 	{
@@ -142,7 +160,7 @@ inline void Mat<T>::Release()
 {
 
 	//引用计数减1,如果引用计数为0，说明没有引用，释放数据
-	if (refCount && (*refCount)-- == 1)
+	if ((refCount!=NULL) && ((*refCount)-- == 1))
 	{
 		Deallocate();
 	}
@@ -196,7 +214,6 @@ inline void Mat<T>::Create(Size _size, int _numberOfChannels)
 }
 
 //重载操作符
-// 注意返回值为Image&(如果返回void，A=(B=C)，那么A就没有值了)
 template <typename T>
 inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 {
@@ -214,7 +231,11 @@ inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 
 		//引用计数
 		refCount = dstMat.refCount;
-		(*refCount)++;
+		if(refCount!=NULL)
+		{
+			(*refCount)++;
+		}
+			
 	}
 
 	return *this;

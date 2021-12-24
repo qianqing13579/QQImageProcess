@@ -27,6 +27,7 @@ public:
 	//构造函数
 	Mat();
 	Mat(const Mat<T>& m);// 拷贝构造
+	Mat(Mat<T>&& m);// 移动构造
 	Mat(int _rows, int _cols, int _numberOfChannels);
 	Mat(int _rows, int _cols, int _numberOfChannels, Scalar scalar); 
 	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// 外部数据_data需要外部释放
@@ -95,6 +96,23 @@ inline Mat<T>::Mat(const Mat<T> &m)
 
 }
 
+// 移动构造
+template <typename T>
+inline Mat<T>::Mat(Mat<T> &&m)
+{
+	// 移动资源
+	data = m.data;
+	refCount = m.refCount;
+	rows = m.rows;
+	cols = m.cols;
+	numberOfChannels = m.numberOfChannels;
+	step = m.step;
+
+	// 使得m运行析构函数是安全的
+	m.refCount=NULL;
+	
+}
+
 template <typename T>
 inline void Mat<T>::InitEmpty()
 {
@@ -158,7 +176,6 @@ Mat<T>::~Mat()
 template <typename T>
 inline void Mat<T>::Release()
 {
-
 	//引用计数减1,如果引用计数为0，说明没有引用，释放数据
 	if ((refCount!=NULL) && ((*refCount)-- == 1))
 	{

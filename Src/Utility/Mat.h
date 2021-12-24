@@ -26,8 +26,8 @@ class  DLL_EXPORTS Mat
 public:
 	//构造函数
 	Mat();
-	Mat(const Mat<T>& m);// 拷贝构造
-	Mat(Mat<T>&& m);// 移动构造
+	Mat(const Mat<T> &m);// 拷贝构造
+	Mat(Mat<T> &&m);// 移动构造
 	Mat(int _rows, int _cols, int _numberOfChannels);
 	Mat(int _rows, int _cols, int _numberOfChannels, Scalar scalar); 
 	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// 外部数据_data需要外部释放
@@ -41,8 +41,9 @@ public:
 	void Create(int _rows, int _cols, int _numberOfChannels);
 	void Create(Size _size, int _numberOfChannels);
 
-	//重载赋值操作符
-	Mat& operator = (const Mat &dstMat);//共享数据
+	// 重载赋值操作符
+	Mat& operator = (const Mat &dstMat);// 赋值
+	Mat& operator = (Mat &&dstMat);// 移动赋值
 
 	void SetTo(const Scalar &scalar);
 
@@ -230,7 +231,7 @@ inline void Mat<T>::Create(Size _size, int _numberOfChannels)
 	Create(_rows, _cols, _numberOfChannels);
 }
 
-//重载操作符
+// 赋值操作符
 template <typename T>
 inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 {
@@ -243,7 +244,6 @@ inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 		cols = dstMat.cols;
 		numberOfChannels = dstMat.numberOfChannels;
 		step = dstMat.step;
-
 		data = dstMat.data;
 
 		//引用计数
@@ -253,6 +253,31 @@ inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 			(*refCount)++;
 		}
 			
+	}
+
+	return *this;
+
+}
+
+// 移动赋值
+template <typename T>
+inline Mat<T>& Mat<T>::operator = (Mat &&dstMat)
+{
+	if (this != &dstMat)
+	{
+		// 调用this的release
+		Release();
+
+		// 移动资源
+		data = dstMat.data;
+		rows = dstMat.rows;
+		cols = dstMat.cols;
+		numberOfChannels = dstMat.numberOfChannels;
+		step = dstMat.step;
+		refCount = dstMat.refCount;
+
+		// 使得dstMat运行析构函数是安全的
+		dstMat.refCount=NULL;
 	}
 
 	return *this;

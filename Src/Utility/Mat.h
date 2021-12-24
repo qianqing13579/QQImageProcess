@@ -27,7 +27,7 @@ public:
 	//构造函数
 	Mat();
 	Mat(const Mat<T> &m);// 拷贝构造
-	Mat(Mat<T> &&m);// 移动构造
+	Mat(Mat<T> &&m) noexcept;// 移动构造
 	Mat(int _rows, int _cols, int _numberOfChannels);
 	Mat(int _rows, int _cols, int _numberOfChannels, Scalar scalar); 
 	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// 外部数据_data需要外部释放
@@ -43,7 +43,7 @@ public:
 
 	// 重载赋值操作符
 	Mat& operator = (const Mat &dstMat);// 赋值
-	Mat& operator = (Mat &&dstMat);// 移动赋值
+	Mat& operator = (Mat &&dstMat) noexcept;// 移动赋值
 
 	void SetTo(const Scalar &scalar);
 
@@ -99,7 +99,7 @@ inline Mat<T>::Mat(const Mat<T> &m)
 
 // 移动构造
 template <typename T>
-inline Mat<T>::Mat(Mat<T> &&m)
+inline Mat<T>::Mat(Mat<T> &&m) noexcept
 {
 	// 移动资源
 	data = m.data;
@@ -261,7 +261,7 @@ inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
 
 // 移动赋值
 template <typename T>
-inline Mat<T>& Mat<T>::operator = (Mat &&dstMat)
+inline Mat<T>& Mat<T>::operator = (Mat &&dstMat) noexcept
 {
 	if (this != &dstMat)
 	{

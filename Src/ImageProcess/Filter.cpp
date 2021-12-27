@@ -9,6 +9,7 @@ using namespace std;
 
 namespace QQ
 {
+
 static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int &medianValue, int &pixelCountLowerMedian)
 {
 	//获取直方图
@@ -31,8 +32,7 @@ static void GetMedianValueAndPixelCountLowerMedian(const Mat<uchar> &image, int 
 
 }
 
-//2015-1-1 20:23:53,by QQ
-//使用copyMakeBorder扩充图像边界，处理滤波边界
+// 使用copyMakeBorder扩充图像边界，处理滤波边界
 void Blur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, Size kernelSize)
 {
 	//新图像的大小
@@ -139,10 +139,9 @@ void Blur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, Size kernelSize)
 		row_Dst += width_Dst;
 		row_Aperture_New += width_New;
 	}
-}// Blur
+} // Blur
 
 
-//2015-4-22 19:51:29,by QQ
 void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aperture)
 {
 	
@@ -295,9 +294,8 @@ void MedianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, int width_Aper
 		row_Aperture_New += width_New;
 	}//end of y
 
-}// MedianBlur
+} // MedianBlur
 
-// 2016-10-4,by QQ
 void GaussianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double sigma)
 {
 
@@ -335,7 +333,7 @@ void GaussianBlur(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double sigma
 		dataOfKernel[i] /= sum;
 	}
 
-	// 做卷积运算,就是Library_OpenCV中的Convolution
+	// 做卷积运算
 	// Convolution(srcImage, gaussianKernel,dstImage);
 
 }// GaussianBlur
@@ -381,6 +379,7 @@ Mat<float> GetGaborKernel(Size ksize, double sigma, double theta, double lambd, 
 	return kernel;
 
 }
+
 // 卷积运算,Kernel正方形卷积核且边长为奇数
 void Convolution(const Mat<uchar> &srcImage, const Mat<float> &kernel, Mat<uchar> &dstImage)
 {

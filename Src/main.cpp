@@ -9,8 +9,7 @@ int main()
 
 	//
 	Samples samples;
-    samples.Filter();
-    // samples.Rotate();
+    samples.Rotate();
 	
     return 0;
 }

@@ -15,14 +15,17 @@
 
 namespace QQ
 {
-// 仿射变换(Rotate_Bilinear2)：srcImage绕点center旋转theta角度（顺时针为正）,缩放scale,平移到dstSize中
+// 仿射变换(Rotate_Bilinear)：srcImage绕点center旋转theta角度（顺时针为正）,缩放scale,平移到dstSize中
 // dstSize:目标图像大小
 // theta:单位角度
 // scale:缩放比例,>1 放大，<1 缩小
 DLL_EXPORTS void Rotate(const Mat<uchar> &srcImage, Point center, double theta, double scale, Size dstSize, Mat<uchar> &dstImage);
 
-// 绕图像中心顺时针旋转90
+// 绕图像中心顺时针旋转90(通过将Rotate的参数center,theta,scale,dstSize设置为常量)
 DLL_EXPORTS void Rotate90(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
+
+// 绕图像中心顺时针旋转180
+DLL_EXPORTS void Rotate180(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 
 // 绕图像中心顺时针旋转270
 DLL_EXPORTS void Rotate270(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);

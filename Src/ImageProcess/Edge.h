@@ -23,13 +23,6 @@ DLL_EXPORTS void Sobel(const Mat<uchar> &srcImage, Mat<uchar> &dstImage);
 DLL_EXPORTS void Canny(const Mat<uchar> &srcImage, Mat<uchar> &dstImage, double lowThreshold, double highThreshold, bool L2 = false);
 
 
-
-
-
-
-
-
-
 }// namesapce QQ
 
 

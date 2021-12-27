@@ -60,9 +60,12 @@ void Samples::Rotate()//旋转
 
     // 旋转
 	Mat<uchar> dstImage;
-    QQ::Rotate(srcImage, Point(srcImage.cols/2,srcImage.rows/2), 90, 1,Size(srcImage.rows, srcImage.cols), dstImage);
-	//Rotate270(srcImage, dstImage); 
-	//VerticalFlip(srcImage, dstImage);
+    // Rotate(srcImage, Point(srcImage.cols/2,srcImage.rows/2), 90, 1,Size(srcImage.rows, srcImage.cols), dstImage);
+	// Rotate90(srcImage, dstImage);
+	Rotate180(srcImage, dstImage); 
+	// Rotate270(srcImage, dstImage); 
+	// VerticalFlip(srcImage, dstImage);
+	// HorizontalFlip(srcImage, dstImage);
 
     // 保存图像
 	WriteBmp("Result.bmp", dstImage);

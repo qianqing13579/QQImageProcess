@@ -15,6 +15,7 @@
 
 #include "CommonDefinition.h"
 #include "Alloc.h"
+#include <algorithm>
 
 namespace QQ
 {
@@ -41,9 +42,8 @@ public:
 	void Create(int _rows, int _cols, int _numberOfChannels);
 	void Create(Size _size, int _numberOfChannels);
 
-	// 重载赋值操作符
-	Mat& operator = (const Mat &dstMat);// 赋值
-	Mat& operator = (Mat &&dstMat) noexcept;// 移动赋值
+	// 赋值操作符(可实现拷贝赋值和移动赋值)
+	Mat& operator = (Mat dstMat);
 
 	void SetTo(const Scalar &scalar);
 
@@ -231,57 +231,24 @@ inline void Mat<T>::Create(Size _size, int _numberOfChannels)
 	Create(_rows, _cols, _numberOfChannels);
 }
 
-// 赋值操作符
 template <typename T>
-inline Mat<T>& Mat<T>::operator = (const Mat<T> &dstMat)
+inline void swap(Mat<T> &a,Mat<T> &b)
 {
-	if (this != &dstMat)
-	{
-		// 调用this的release
-		Release();
-
-		rows = dstMat.rows;
-		cols = dstMat.cols;
-		numberOfChannels = dstMat.numberOfChannels;
-		step = dstMat.step;
-		data = dstMat.data;
-
-		//引用计数
-		refCount = dstMat.refCount;
-		if(refCount!=NULL)
-		{
-			(*refCount)++;
-		}
-			
-	}
-
-	return *this;
-
+	using std::swap;
+	swap(a.rows,b.rows);
+	swap(a.cols,b.cols);
+	swap(a.numberOfChannels,b.numberOfChannels);
+	swap(a.step,b.step);
+	swap(a.data,b.data);
+	swap(a.refCount,b.refCount);
 }
 
-// 移动赋值
 template <typename T>
-inline Mat<T>& Mat<T>::operator = (Mat &&dstMat) noexcept
+inline Mat<T>& Mat<T>::operator = (Mat<T> dstMat)
 {
-	if (this != &dstMat)
-	{
-		// 调用this的release
-		Release();
-
-		// 移动资源
-		data = dstMat.data;
-		rows = dstMat.rows;
-		cols = dstMat.cols;
-		numberOfChannels = dstMat.numberOfChannels;
-		step = dstMat.step;
-		refCount = dstMat.refCount;
-
-		// 使得dstMat运行析构函数是安全的
-		dstMat.refCount=NULL;
-	}
-
+	// copy-swap
+	swap(*this,dstMat);
 	return *this;
-
 }
 
 template <typename T>

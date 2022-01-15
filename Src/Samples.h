@@ -22,6 +22,7 @@ public:
 	void EqualizeHistogram();// 直方图均衡化
 	void Filter();// 滤波
 	void Edge(); // 边缘检测
+	void TestCopyAssignment(); // 测试Mat的拷贝控制成员
 };
 
 #endif

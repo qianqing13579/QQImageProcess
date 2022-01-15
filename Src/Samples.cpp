@@ -1,6 +1,7 @@
 #include"Samples.h"
 #include<stdio.h>
 #include<time.h>
+#include<utility>
 #include"Bmp.h"
 #include"Edge.h"
 #include"Filter.h"
@@ -151,5 +152,42 @@ void Samples::Edge()
 	// 保存图像
     WriteBmp("Result.bmp", dstImage);
 
+}
+
+void Samples::TestCopyAssignment()
+{
+	// 拷贝赋值
+	{
+		printf("============test copy assignment============\n");
+		QQ::Mat<uchar> a(512,512,3);
+		QQ::Mat<uchar> b(512,512,3);
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u,count:%d\n",b.refCount,*(b.refCount));
+		a=b;
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u\n",b.refCount);
+	}
+	// 移动赋值
+	{
+		printf("============test move assignment============\n");
+		QQ::Mat<uchar> a(512,512,3);
+		QQ::Mat<uchar> b(512,512,3);
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u,count:%d\n",b.refCount,*(b.refCount));
+		a=std::move(b);
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u\n",b.refCount);
+	}
+	// 自赋值
+	{
+		printf("============test self assignment============\n");
+		QQ::Mat<uchar> a(512,512,3);
+		QQ::Mat<uchar> b(512,512,3);
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u,count:%d\n",b.refCount,*(b.refCount));
+		a=a;
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u\n",b.refCount);
+	}
 }
 

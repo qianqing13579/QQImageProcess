@@ -24,7 +24,7 @@ template <typename T>
 class  DLL_EXPORTS Mat
 {
 public:
-	//构造函数
+	// 构造函数
 	Mat();
 	Mat(const Mat<T> &m);// 拷贝构造
 	Mat(Mat<T> &&m) noexcept;// 移动构造
@@ -32,12 +32,12 @@ public:
 	Mat(int _rows, int _cols, int _numberOfChannels, Scalar scalar); 
 	Mat(int _rows, int _cols, int _numberOfChannels, void *_data, bool needCopyData = false);// 外部数据_data需要外部释放
 	
-	//析构函数
+	// 析构函数
 	virtual ~Mat();//调用Release()
 	void Release();//引用计数减1
 	void Deallocate();//释放数据
 
-	//自动分配内存
+	// 自动分配内存
 	void Create(int _rows, int _cols, int _numberOfChannels);
 	void Create(Size _size, int _numberOfChannels);
 
@@ -59,13 +59,13 @@ public:
 public:
 	int rows;
 	int cols;
-	int numberOfChannels;//通道数
+	int numberOfChannels;// 通道数
 	int step;// 步长(每行字节数)
 	
 	uchar *data;	
 
-	//引用计数
-	int *refCount;// 如果为空，表示不需要释放内存(使用了外部数据)
+	// 引用计数,当Mat指向外部数据的时候，refCount为NULL，不需要释放内存
+	int *refCount;
 
 };// Mat
 

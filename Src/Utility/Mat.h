@@ -45,6 +45,8 @@ public:
 	// 赋值操作符(可实现拷贝赋值和移动赋值)
 	Mat& operator = (Mat dstMat);
 
+	void swap(Mat &dstMat);
+
 	void SetTo(const Scalar &scalar);
 
 	// 获取指定位置的元素
@@ -232,21 +234,29 @@ inline void Mat<T>::Create(Size _size, int _numberOfChannels)
 }
 
 template <typename T>
-inline void swap(Mat<T> &a,Mat<T> &b)
+inline void Mat<T>::swap(Mat &dstMat)
 {
 	using std::swap;
-	swap(a.rows,b.rows);
-	swap(a.cols,b.cols);
-	swap(a.numberOfChannels,b.numberOfChannels);
-	swap(a.step,b.step);
-	swap(a.data,b.data);
-	swap(a.refCount,b.refCount);
+	swap(this->rows,dstMat.rows);
+	swap(this->cols,dstMat.cols);
+	swap(this->numberOfChannels,dstMat.numberOfChannels);
+	swap(this->step,dstMat.step);
+	swap(this->data,dstMat.data);
+	swap(this->refCount,dstMat.refCount);
+
+}
+
+template <typename T>
+inline void swap(Mat<T> &a,Mat<T> &b)
+{
+	a.swap(b);
 }
 
 template <typename T>
 inline Mat<T>& Mat<T>::operator = (Mat<T> dstMat)
 {
 	// copy-swap
+	using std::swap;
 	swap(*this,dstMat);
 	return *this;
 }

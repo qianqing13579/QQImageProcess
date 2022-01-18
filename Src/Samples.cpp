@@ -178,6 +178,23 @@ void Samples::TestCopyAssignment()
 		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
 		printf("b: address:%u\n",b.refCount);
 	}
+	{
+		printf("============test move assignment============\n");
+		QQ::Mat<uchar> a(512,512,3);
+		QQ::Mat<uchar> b(512,512,3);
+		QQ::Mat<uchar> c(512,512,3);
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u,count:%d\n",b.refCount,*(b.refCount));
+		printf("c: address:%u,count:%d\n",c.refCount,*(c.refCount));
+		a=b;
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u,count:%d\n",b.refCount,*(b.refCount));
+		printf("c: address:%u,count:%d\n",c.refCount,*(c.refCount));
+		a=std::move(c);
+		printf("a: address:%u,count:%d\n",a.refCount,*(a.refCount));
+		printf("b: address:%u,count:%d\n",b.refCount,*(b.refCount));
+		printf("c: address:%u\n",c.refCount);
+	}
 	// 自赋值
 	{
 		printf("============test self assignment============\n");
